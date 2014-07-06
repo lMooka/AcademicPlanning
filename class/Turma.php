@@ -1,5 +1,7 @@
 <?php
 
+require_once(__DIR__.'/../libs/RedBean/setup.php');
+
 class Turma	{
 	private $id; //id vindo do banco (int)
 	private $nome; //nome (string)
@@ -10,17 +12,17 @@ class Turma	{
 	private $bean; //bean da turma carregada
 	
 	
-	public __construct($_nome=null,$_credito=null,$_docente=null,$_curso=null){
-		$this->nome = $_nome
-		$this->credito = $_credito;
-		$this->docente = $_docente;
-		$this->curso = $_curso;
+	function __construct($nome_=null,$credito_= NULL,$docente_= NULL,$curso_= NULL){
+		$this->nome = $nome_;
+		$this->credito = $credito_;
+		$this->docente = $docente_;
+		$this->curso = $curso_;
 	}
 	
-	public Salvar(){
+	public function Salvar(){
 	
 		$turma = R::dispense('turma');
-		$turma->id = $this->id;
+		//$turma->id = $this->id;
 		$turma->nome = $this->nome;
 		$turma->credito = $this->credito;
 		$turma->docente = $this->docente;
@@ -28,7 +30,7 @@ class Turma	{
 		$this->id = R::store($turma);
 	}
 	
-	public Carregar($_id){
+	public function Carregar($_id){
 		$turma = R::load('turma',$_id);
 		
 		$this->id = $turma->id;
@@ -40,7 +42,7 @@ class Turma	{
 		$this->bean = $turma;
 	}
 	
-	public Remover($_id){
+	public function Remover($_id){
 		$this->Carregar($_id);
 		R::trash($this->bean);
 	}

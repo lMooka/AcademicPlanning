@@ -1,6 +1,6 @@
 <?php
 require(__DIR__.'/rb.php');
-   R::setup('mysql:host=localhost;
-        dbname=test','root','');
+   R::setup('mysql:host=localhost:3307;
+        dbname=planejamento','root','usbw');
 		
 ?>
