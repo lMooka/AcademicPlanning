@@ -37,25 +37,14 @@ $('tr').droppable({
 
 
 Draggables();
-
+Masks();
 
 });
 
 
 
 
-//====Transforma .horas e .minutos em um spinner
-function GeraSpinners(){
-	$(".horas").spinner({
-		max: 22,
-		min: 7
-	});
-	
-	$(".minutos").spinner({
-		max: 59,
-		min: 00,
-	})
-}
+
 
 
 //===== FUNCÇÕES PARA APÓS DROP NA TABELA
@@ -75,14 +64,14 @@ function HorarioDrop(){
 //=====
 function NovoHorario(){
 	$("#panelhorario").append(novohorario);
-	GeraSpinners();
 	Draggables();
+	Masks();
 }
 
 
 
 //====STRINGS
-var novohorario = '<div class="well well-sm item-horario drop-turma"> Dia: <select> <option value="1">Segunda-feira</option> <option value="2">Terça-feira</option> </select> <br/><hr> Inicio: <input class="horas" size="2" disabled>:<input class="minutos" size="2" disabled> </br><hr> Fim:<input class="horas" size="2" disabled>:<input class="minutos" size="2" disabled></div>';
+var novohorario = '<div class="well well-sm item-horario drop-turma"> Dia: <select> <option value="1">Segunda-feira</option> <option value="2">Terça-feira</option> </select> <br/><hr> Inicio: <input class="text-horario" size="5" ></br><hr> Fim:<input class="text-horario" size="5" ></div>';
 
 
 function Draggables(){
@@ -111,4 +100,9 @@ $(".item-horario").draggable({
 
 
 
+}
+
+function Masks(){
+	$('.text-horario').mask('29:59', {translation:  {'2': {pattern: /[0-2]/, optional: false},'5': {pattern: /[0-5]/, optional: false}}});
+	//$('.horario').mask('29:59', {translation: {'2': {pattern: /[0-2]/},'5': {pattern: /[0-5]/} } };
 }
