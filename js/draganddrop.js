@@ -48,8 +48,10 @@ Masks();
 
 
 //===== FUNCÇÕES PARA APÓS DROP NA TABELA
-function MateriaDrop(){
-	alert("Matéria adicionada a tabela. Chamar JSON");
+function MateriaDrop(id){
+	$.post('/json/adicionarturma.php',{id: id},function(data){
+		alert(data);
+	})
 }
 
 function DocenteDrop(){

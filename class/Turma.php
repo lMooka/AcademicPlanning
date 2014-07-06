@@ -3,39 +3,38 @@
 require_once(__DIR__.'/../libs/RedBean/setup.php');
 
 class Turma	{
+
 	private $id; //id vindo do banco (int)
-	private $nome; //nome (string)
-	private $credito; //credito vindo do banco (int)
+	private $materia; //(bean) materia
 	private $docente; //(bean) docente
 	private $horarios; // array de beans
-	private $curso; //(bean) curso
+	private $curso; //(bean curso)
 	private $bean; //bean da turma carregada
 	
 	
-	function __construct($nome_=null,$credito_= NULL,$docente_= NULL,$curso_= NULL){
-		$this->nome = $nome_;
-		$this->credito = $credito_;
-		$this->docente = $docente_;
-		$this->curso = $curso_;
+	function __construct($id_materia = null,$id_docente = null,$id_curso = null){
+		if ($id_docente)$this->docente = R::load('docente',$id_docente);
+		if ($id_materia)$this->materia = R::load('materia',$id_materia);
+		if ($id_curso)$this->curso = R::load('curso',$id_curso);
 	}
 	
 	public function Salvar(){
 	
 		$turma = R::dispense('turma');
-		//$turma->id = $this->id;
-		$turma->nome = $this->nome;
-		$turma->credito = $this->credito;
+		if (!$this->id) $this->id = 0;
+		$turma->id = $this->id;
+		$turma->materia = $this->materia;
 		$turma->docente = $this->docente;
 		$turma->curso = $this->curso;
 		$this->id = R::store($turma);
+		$this->bean = R::load('turma',$this->id);
 	}
 	
 	public function Carregar($_id){
 		$turma = R::load('turma',$_id);
 		
 		$this->id = $turma->id;
-		$this->nome = $turma->nome;
-		$this->credito = $turma->credito;
+		$this->materia = $turma->materia;
 		$this->docente = $turma->docente;
 		$this->horarios = R::find('horarios', "turma_id = $turma->id");
 		$this->curso = $turma->curso;
