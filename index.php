@@ -43,9 +43,24 @@
 		</div>
 		
 		<div class="panel-body">
-			<div class="well well-sm">
+			<div class="well well-sm docentedrag drop-turma" id='150'>
 			Fred Durão
 			</div>
+		</div>
+	</div>
+	</div>
+</div>
+
+<div class="col-lg-2">
+<div class="bs-component" >
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">Horário</h3>
+		</div>
+		
+		<div class="panel-body" id='panelhorario'>
+			<button type="button" class="btn btn-primary" id='addhorario'>Adicionar</button>
+			
 		</div>
 	</div>
 	</div>
