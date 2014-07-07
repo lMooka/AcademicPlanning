@@ -11,6 +11,8 @@ class Turma	{
 	private $curso; //(bean curso)
 	private $bean; //bean da turma carregada
 	
+	////////CRUD
+	
 	
 	function __construct($id_materia = null,$id_docente = null,$id_curso = null){
 		if ($id_docente)$this->docente = R::load('docente',$id_docente);
@@ -44,6 +46,18 @@ class Turma	{
 	public function Remover($_id){
 		$this->Carregar($_id);
 		R::trash($this->bean);
+	}
+	
+	public function SetDocente($id_docente){
+		$this->docente = R::load('docente', $id_docente);
+	}
+	
+	public function GetDocente(){
+		return $this->docente;
+	}
+	
+	public function SetCurso($id_curso){
+		$this->curso = R::load('curso', $id_curso);
 	}
 	
 }
