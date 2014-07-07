@@ -5,37 +5,10 @@ $('#addhorario').click(function(){
 });
 
 
-//======DROPPABLES
-
-$( "table" ).droppable({
-	accept: ".materiadrag",
-	drop: function(){
-		MateriaDrop();
-	}
-
-});
 
 
-$('tr').droppable({
-	accept: ".drop-turma",
-	drop: function(event, ui){
-	
-		if (ui.draggable.hasClass('docentedrag')){
-			DocenteDrop();
-		}
-		
-		if (ui.draggable.hasClass('item-horario')){
-			HorarioDrop();
-		}
-		
-		$(this).removeClass('info');
-	},
-	over: function(){
-		$(this).addClass('info');
-	}
-});
 
-
+Droppables();
 Draggables();
 Masks();
 
@@ -48,14 +21,26 @@ Masks();
 
 
 //===== FUNCÇÕES PARA APÓS DROP NA TABELA
-function MateriaDrop(id){
-	$.post('/json/adicionarturma.php',{id: id},function(data){
-		alert(data);
-	})
+function MateriaDrop(id_materia){ //criar uma nova turma
+	$.post("/json/adicionarturma.php", {materia: id_materia})
+	.done(function(data){
+		
+		result = $.parseJSON(data);
+		var novaLinha = '<tr id="'+result['id']+'">	<td class="ref">'+result['ref']+'</td> <td class="curso"></td>	<td class="seg"></td>	<td class="ter"></td>	<td class="qua"></td>	<td class="qui"></td>	<td class="sex"></td>	<td class="docente"></td>	<td class="credito">'+result['credito']+'</td>	<td class="disciplina">'+result['disciplina']+'</td>	</tr>';
+		$(novaLinha).appendTo($("#planilha")).hide().fadeIn('slow');
+		Droppables();
+	});
 }
 
-function DocenteDrop(){
-	alert("Docente adicionado a turma. Chamar JSON");
+function DocenteDrop(id_docente,id_turma){
+	$.post("/json/adicionardocente.php",{docente: id_docente, turma: id_turma})
+	.done(function(data){
+		result = $.parseJSON(data);
+		var nomeDocente = result['docente'];
+		var local = "tr#"+id_turma;
+	
+		$(local).children('.docente').html(nomeDocente).hide().fadeIn('slow');
+	});
 }
 
 function HorarioDrop(){
@@ -75,6 +60,47 @@ function NovoHorario(){
 //====STRINGS
 var novohorario = '<div class="well well-sm item-horario drop-turma"> Dia: <select> <option value="1">Segunda-feira</option> <option value="2">Terça-feira</option> </select> <br/><hr> Inicio: <input class="text-horario" size="5" ></br><hr> Fim:<input class="text-horario" size="5" ></div>';
 
+
+function Droppables(){
+//======DROPPABLES
+
+$( "table" ).droppable({
+	accept: ".materiadrag",
+	drop: function(event,ui){
+		var id_materia = ui.draggable.attr('id');
+		
+		
+		MateriaDrop(id_materia);
+	}
+
+});
+
+
+$('tr').droppable({
+	accept: ".drop-turma",
+	drop: function(event, ui){
+	
+		if (ui.draggable.hasClass('docentedrag')){
+			var id_docente = ui.draggable.attr('id');
+			var id_turma = $(this).attr('id');
+			
+			DocenteDrop(id_docente,id_turma);
+		}
+		
+		if (ui.draggable.hasClass('item-horario')){
+			HorarioDrop();
+		}
+		
+		$(this).removeClass('info');
+	},
+	over: function(){
+		$(this).addClass('info');
+	},
+	out: function(){
+		$(this).removeClass('info');
+	}
+});
+}
 
 function Draggables(){
 $(".docentedrag").draggable({

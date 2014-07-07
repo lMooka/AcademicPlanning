@@ -7,9 +7,9 @@ class Turma	{
 	private $id; //id vindo do banco (int)
 	private $materia; //(bean) materia
 	private $docente; //(bean) docente
-	private $horarios; // array de beans
+	private $horario; // array de beans
 	private $curso; //(bean curso)
-	private $bean; //bean da turma carregada
+	public $bean; //bean da turma carregada
 	
 	////////CRUD
 	
@@ -38,7 +38,7 @@ class Turma	{
 		$this->id = $turma->id;
 		$this->materia = $turma->materia;
 		$this->docente = $turma->docente;
-		$this->horarios = R::find('horarios', "turma_id = $turma->id");
+		$this->horario = R::find('horario', "turma_id = $_id");
 		$this->curso = $turma->curso;
 		$this->bean = $turma;
 	}
@@ -59,6 +59,15 @@ class Turma	{
 	public function SetCurso($id_curso){
 		$this->curso = R::load('curso', $id_curso);
 	}
+	
+	public function GetCurso(){
+		return $this->curso;
+	}
+	
+	public function GetHorario(){
+		return $this->horario;
+	}
+	
 	
 }
 

@@ -37,6 +37,8 @@ class Curso	{
 		R::trash($this->bean);
 	}
 	
+	
+	
 }
 
 ?>
