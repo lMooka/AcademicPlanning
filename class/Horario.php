@@ -14,6 +14,8 @@ class Horario {
 	
 		if ($this->subtraiHoras($inicio_,$fim_)<= 0 ) throw new Exception("Horário inválido");
 		if ($dia_ > 6 || $dia_ <1) throw new Exception("Dia inválido");
+		//Valida se não existe um horário "dentro de outro"
+		
 		$this->dia = $dia_;
 		$this->inicio = $inicio_;
 		$this->fim = $fim_;
@@ -25,8 +27,8 @@ class Horario {
 		if (!$this->id) $this->id = 0; //se id não foi setado é um novo horario (id = 0)
 		$horario->dia = $this->dia;
 		$horario->inicio = $this->inicio;
-		$horario->fim = $this->fim;
 		$horario->turma = $this->turma;
+		$horario->fim = $this->fim;
 		$this->id = R::store($horario);
 		$this->bean = R::load('horario', $this->id);
 	}
