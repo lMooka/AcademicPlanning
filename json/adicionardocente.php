@@ -1,5 +1,5 @@
 <?php
-//error_reporting(0);
+error_reporting(0);
 require_once(__DIR__.'/../class/Turma.php');
 
 $id_turma = $_POST['turma'];

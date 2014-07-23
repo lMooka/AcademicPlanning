@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tempo de Geração: 07/07/2014 às 23h43min
+-- Tempo de Geração: 08/07/2014 às 00h12min
 -- Versão do Servidor: 5.5.20
 -- Versão do PHP: 5.3.9
 
@@ -120,17 +120,14 @@ CREATE TABLE IF NOT EXISTS `turma` (
   KEY `index_foreignkey_turma_materia` (`materia_id`),
   KEY `index_foreignkey_turma_docente` (`docente_id`),
   KEY `index_foreignkey_turma_curso` (`curso_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=38 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci AUTO_INCREMENT=39 ;
 
 --
 -- Extraindo dados da tabela `turma`
 --
 
 INSERT INTO `turma` (`id`, `materia_id`, `docente_id`, `curso_id`, `materia`, `docente`, `curso`) VALUES
-(22, 1, 1, NULL, NULL, NULL, NULL),
-(35, 1, 1, NULL, NULL, NULL, NULL),
-(36, 1, 1, NULL, NULL, NULL, NULL),
-(37, 1, 1, NULL, NULL, NULL, NULL);
+(22, 1, 1, NULL, NULL, NULL, NULL);
 
 --
 -- Restrições para as tabelas dumpadas
