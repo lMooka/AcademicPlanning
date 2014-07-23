@@ -13,15 +13,14 @@ class Turma	{
 	
 	////////CRUD
 	
-	
-	function __construct($id_materia = null,$id_docente = null,$id_curso = null){
-		if ($id_docente)$this->docente = R::load('docente',$id_docente);
-		if ($id_materia)$this->materia = R::load('materia',$id_materia);
-		if ($id_curso)$this->curso = R::load('curso',$id_curso);
+	function __construct($id_materia = null, $id_docente = null, $id_curso = null){
+		if ($id_docente)$this->docente = R::load('docente', $id_docente);
+		if ($id_materia)$this->materia = R::load('materia', $id_materia);
+		if ($id_curso)$this->curso = R::load('curso', $id_curso);
 	}
 	
 	public function Salvar(){
-	
+        
 		$turma = R::dispense('turma');
 		if (!$this->id) $this->id = 0;
 		$turma->id = $this->id;
@@ -67,8 +66,6 @@ class Turma	{
 	public function GetHorario(){
 		return $this->horario;
 	}
-	
-	
 }
 
 ?>

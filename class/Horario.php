@@ -1,9 +1,10 @@
 <?php
 
-class Horario{
+class Horario {
 	private $dia;
 	private $horaInicio;
 	private $horaFim;
 }
+
 
 ?>

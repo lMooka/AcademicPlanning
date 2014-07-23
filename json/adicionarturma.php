@@ -5,8 +5,6 @@ require_once(__DIR__.'/../class/Turma.php');
 $id_materia = $_POST['materia'];
 
 
-
-
 //$id = $_POST['nome'];
 $turma = new Turma($id_materia);
 $turma->Salvar();

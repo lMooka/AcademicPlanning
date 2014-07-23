@@ -11,7 +11,7 @@ class Materia	{
 	private $bean; //bean da materia carregada
 	
 	
-	function __construct($nome_ = null, $ref_ = null,$credito_ = null){
+	function __construct($nome_ = null, $ref_ = null, $credito_ = null){
 		$this->nome = $nome_;
 		$this->credito = $credito_;
 		$this->ref = $ref_;

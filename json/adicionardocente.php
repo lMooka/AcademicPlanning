@@ -6,8 +6,6 @@ $id_turma = $_POST['turma'];
 $id_docente = $_POST['docente'];
 
 
-
-
 //$id = $_POST['nome'];
 $turma = new Turma();
 $turma->Carregar($id_turma);
@@ -15,8 +13,8 @@ $turma->SetDocente($id_docente);
 $turma->Salvar();
 
 
-	$return['docente'] = $turma->bean->docente->nome;
-	
-	echo json_encode($return);
+$return['docente'] = $turma->bean->docente->nome;
+
+echo json_encode($return);
 
 ?>
