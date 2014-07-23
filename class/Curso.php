@@ -9,6 +9,7 @@ class Curso	{
 	private $bean; //bean do curso carregado
 	
 	
+	
 	function __construct($nome_ = null){
 		$this->nome = $nome_;
 	}

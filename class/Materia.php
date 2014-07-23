@@ -8,12 +8,14 @@ class Materia	{
 	private $nome; // (string) nome
 	private $ref; //(string) cod de referencia da disciplina ex. MATC84
 	private $credito;//(int) creditos da materia
+	private $obrigatoria; //(bool)
 	private $bean; //bean da materia carregada
 	
 	
-	function __construct($nome_ = null, $ref_ = null, $credito_ = null){
+	function __construct($nome_ = null, $ref_ = null, $credito_ = null, $obrigatoria_=null){
 		$this->nome = $nome_;
 		$this->credito = $credito_;
+		$this->obrigatoria = $obrigatoria_;
 		$this->ref = $ref_;
 	}
 	
@@ -24,6 +26,7 @@ class Materia	{
 		$materia->id = $this->id;
 		$materia->nome = $this->nome;
 		$materia->credito = $this->credito;
+		$materia->obrigatoria = $this->obrigatoria;
 		$materia->ref = $this->ref;
 		$this->id = R::store($materia);
 		$this->bean = R::load('materia',$this->id);
@@ -35,6 +38,7 @@ class Materia	{
 		$this->id = $materia->id;
 		$this->nome = $materia->nome;
 		$this->credito = $materia->credito;
+		$this->obrigatoria = $materia->obrigatoria;
 		$this->ref = $materia->ref;
 		$this->bean = $materia;
 	}
