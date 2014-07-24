@@ -48,6 +48,7 @@ class Turma	{
 	}
 	
 	public function SetDocente($id_docente){
+		$crtotal = 0;
 		$this->docente = R::load('docente', $id_docente);
 	}
 	

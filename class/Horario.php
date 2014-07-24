@@ -16,6 +16,8 @@ class Horario {
 		if ($dia_ > 6 || $dia_ <1) throw new Exception("Dia inválido");
 		//Valida se não existe um horário "dentro de outro"
 		
+		
+		
 		$this->dia = $dia_;
 		$this->inicio = $inicio_;
 		$this->fim = $fim_;
@@ -23,6 +25,14 @@ class Horario {
 	}
 	
 	public function Salvar(){
+		//Valida se não existe um horário "dentro de outro"
+		$turmaid = $this->turma->id;
+		$horarios = R::find('horario', "turma_id = $turmaid AND dia = $this->dia");
+		foreach ($horarios as $h){
+			if (((strtotime($h->inicio) <  strtotime($this->inicio)) && (strtotime($this->inicio) < strtotime($h->fim)))  ||  ((strtotime($h->inicio) < strtotime($this->fim)) && (strtotime($this->fim) < strtotime($h->fim))){
+				throw new Exception("Choque de horários da mesma matéria");
+			}
+		}
 		$horario = R::dispense('horario');
 		if (!$this->id) $this->id = 0; //se id não foi setado é um novo horario (id = 0)
 		$horario->dia = $this->dia;

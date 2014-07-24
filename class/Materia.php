@@ -9,7 +9,7 @@ class Materia	{
 	private $ref; //(string) cod de referencia da disciplina ex. MATC84
 	private $credito;//(int) creditos da materia
 	private $obrigatoria; //(bool)
-	private $bean; //bean da materia carregada
+	public $bean; //bean da materia carregada
 	
 	
 	function __construct($nome_ = null, $ref_ = null, $credito_ = null, $obrigatoria_=null){
