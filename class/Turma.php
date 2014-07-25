@@ -62,7 +62,7 @@ class Turma	{
 			
 			
 			if ($crtotal + $this->materia->credito > MAX_CR){
-				throw new Exception("Docente excederá o máximo de CR permitido. (CR atual: $crtotal)");
+				throw new Exception("Docente excederá o máximo de CR permitido. (CR atual: $crtotal / Máximo:".MAX_CR.")");
 			}
 		}
 		

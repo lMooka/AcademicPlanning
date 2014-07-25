@@ -3,7 +3,7 @@ $(function () {
 	$('td.docente, td.ref, td.curso, td.disciplina').hover(function(){
 		if ($(this).html()){
 			$(this).children().remove();
-			btnstring = '<button type="button" class="btn btn-primary btn-xs" style="font-size: 8px;opacity:0.6;">X</button>';
+			btnstring = ' <button type="button" class="btn btn-primary btn-xs" style="font-size: 8px;opacity:0.6;">X</button>';
 			$(btnstring).appendTo($(this)).hide().fadeIn('slow');
 		}
 	}, function(){
