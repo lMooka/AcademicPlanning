@@ -1,3 +1,3 @@
 <?php
-define("MAX_CR", 0);
+define("MAX_CR", 4);
 ?>

@@ -1,5 +1,29 @@
 $(function () {
 
+	//$("#materiascol").draggable();
+	$("#docentescol").dialog({ autoOpen: false });
+	$("#materiascol").dialog({ autoOpen: false });
+	$("#cursoscol").dialog({ autoOpen: false });
+	
+	
+	$("#btnDocentes").click(function(){
+		$("#docentescol").dialog('open');
+		$('.ui-dialog').css('z-index','10');
+		
+	});
+	
+	$("#btnCursos").click(function(){
+		$("#cursoscol").dialog('open');
+		$('.ui-dialog').css('z-index','10');
+		
+	});
+	
+	$("#btnMaterias").click(function(){
+		$("#materiascol").dialog('open');
+		$('.ui-dialog').css('z-index','10');
+	});
+	
+	
     $('#addhorario').click(function () {
         NovoHorario();
     });
@@ -63,7 +87,9 @@ function DocenteDrop(id_docente, id_turma) {
 	.done(function (data) {
 		
 	    result = $.parseJSON(data);
-		
+		if(result['error']){
+			MostraErro(result['error']);
+		}
 	    var nomeDocente = result['docente'];
 	    var local = "tr#" + id_turma;
 
@@ -117,62 +143,98 @@ var novohorario = '<br/><div class="well well-sm item-horario drop-turma"> Dia: 
 
 function Droppables() {
     //======DROPPABLES
+	
+	
 
-    $("table").droppable({
+
+	$('.ui-dialog-content').droppable({
+		accept: "div",
+		over: function (event,ui){
+			
+			
+			$('table').droppable( "disable" );
+			$('tr').droppable( "disable" );
+			$('.info').removeClass('info');
+			$('#table').css("border","");
+			
+		},
+
+		out: function (event,ui){
+		
+			Droppables();
+		}
+	});
+	
+	    $('table').droppable({
         accept: ".materiadrag",
         drop: function (event, ui) {
             var id_materia = ui.draggable.attr('id');
-
+			$('#table').css("border","");
 
             MateriaDrop(id_materia);
-        }
+        },
+		over: function(){
+			$('#table').css("border","2px solid blue");
+		},
+
+		out: function(){
+			$('#table').css("border","");
+		}
 
     });
-
-
+	
     $('tr').droppable({
         accept: ".drop-turma",
+
         drop: function (event, ui) {
 
-            if (ui.draggable.hasClass('docentedrag')) {
-                var id_docente = ui.draggable.attr('id');
-                var id_turma = $(this).attr('id');
+				if (ui.draggable.hasClass('docentedrag')) {
+					var id_docente = ui.draggable.attr('id');
+					var id_turma = $(this).attr('id');
 
-                DocenteDrop(id_docente, id_turma);
-            }
+					DocenteDrop(id_docente, id_turma);
+				}
 
-            if (ui.draggable.hasClass('item-horario')) {
-                HorarioDrop();
-            }
-
-            $(this).removeClass('info');
+				if (ui.draggable.hasClass('item-horario')) {
+					HorarioDrop();
+				}
+				
+				
+			$(this).removeClass('info');
+            
         },
-        over: function () {
-            $(this).addClass('info');
+        over: function (event,ui) {
+
+				$(this).addClass('info');
+				
+
         },
-        out: function () {
+        out: function (event,ui) {
             $(this).removeClass('info');
         }
     });
+	
+	$('table').droppable( "enable" );
+	$('tr').droppable( "enable" );
+	
 }
 
 function Draggables() {
-    $(".docentedrag").draggable({
-
-        revert: true
+    $(".drop-turma").draggable({
+        revert: true,
+		helper:'clone',
+		appendTo: 'body',
+		zIndex: 101,
+		addClasses: false
     });
 
     $(".materiadrag").draggable({
 
         revert: true,
-
-        drag: function () {
-            $('table').css('border-color', 'red');
-        },
-
-        stop: function () {
-            $('table').css('border-color', 'grey');
-        }
+		helper:'clone',
+		appendTo: 'body',
+		zIndex: 100,
+		addClasses: false
 
     });
 
@@ -188,3 +250,7 @@ function Masks() {
     $('.text-horario').mask('29:59', { translation: { '2': { pattern: /[0-2]/, optional: false }, '5': { pattern: /[0-5]/, optional: false } } });
     //$('.horario').mask('29:59', {translation: {'2': {pattern: /[0-2]/},'5': {pattern: /[0-5]/} } };
 }
+
+
+
+//MOSTRA ERROS

@@ -6,8 +6,15 @@ require_once(__DIR__.'/libs/RedBean/setup.php');
 <head>
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+	<script src="/js/erro.js"></script>
     <script src="/js/draganddrop.js"></script>
     <script src="/js/jquery.mask.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	
+	
+	<link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/jquery-ui.structure.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/jquery-ui.theme.min.css">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -24,8 +31,15 @@ require_once(__DIR__.'/libs/RedBean/setup.php');
             </button>
             <a class="navbar-brand" href="/index.php">Home</a>
         </div>
+		<button type="button" class="btn btn-default navbar-btn btn-primary" id="btnDocentes">Docentes</button>
+		<button type="button" class="btn btn-default navbar-btn btn-primary" id="btnMaterias">Matérias</button>
+		<button type="button" class="btn btn-default navbar-btn btn-primary" id="btnCursos">Cursos</button>
         <button type="button" class="btn btn-default navbar-btn navbar-right btn-success">Fazer Login</button>
     </nav>
+	<div id='errors' style='position: absolute; top: 5%; width: 50%; left: 25%; text-align: center; margin-left: auto; margin-right: auto;'>
+		
+	</div>
+	
     <section id="table" class="panel panel-default panel-primary" style="margin: 15px 15px 15px 15px;">
         <!-- Default panel contents -->
         <div class="panel-heading">Planilha</div>
@@ -99,11 +113,11 @@ require_once(__DIR__.'/libs/RedBean/setup.php');
                         </div>
                     </div>
 
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
+                    <div class="panel panel-primary" id="materiascol" title="Matérias">
+                        <!--<div class="panel-heading">
                             Matérias &nbsp
                                 <button type="button" style='text-align: right;' class="btn btn-info btn-sm btn-right" id='btnMostrarDivMateria'>+</button>
-                        </div>
+                        </div>-->
 
                         <div id="div-materias" class="panel-body">
                             <?php
@@ -138,11 +152,11 @@ require_once(__DIR__.'/libs/RedBean/setup.php');
                         </div>
                     </div>
 
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
+                    <div class="panel panel-primary" id="docentescol" style='z-index: 10;' title='DOCENTES'>
+                        <!--<div class="panel-heading">
                             Docentes &nbsp
                                 <button type="button" style='text-align: right;' class="btn btn-info btn-sm btn-right" id='btnMostrarDivDocente'>+</button>
-                        </div>
+                        </div>-->
 
                         <div class="panel-body">
                             <!--                                <div class="well well-sm docentedrag drop-turma" id='150'>
@@ -155,6 +169,28 @@ require_once(__DIR__.'/libs/RedBean/setup.php');
                             $docentes = R::findAll('docente');
                             foreach ($docentes as $id => $docente){
                                 echo "<div class='well well-sm docentedrag drop-turma' id='$id'>$docente->nome</div>";
+                            }
+                            ?>
+                        </div>
+                    </div>
+					
+					<div class="panel panel-primary" id="cursoscol" style='z-index: 10;' title='CURSOS'>
+                        <!--<div class="panel-heading">
+                            Docentes &nbsp
+                                <button type="button" style='text-align: right;' class="btn btn-info btn-sm btn-right" id='btnMostrarDivDocente'>+</button>
+                        </div>-->
+
+                        <div class="panel-body">
+                            <!--                                <div class="well well-sm docentedrag drop-turma" id='150'>
+                                    Fred Durão
+		
+                                </div>-->
+
+                            <?php
+                            //PREENCHE COM DOCENTES DO BANCO
+                            $cursos = R::findAll('curso');
+                            foreach ($cursos as $id => $curso){
+                                echo "<div class='well well-sm cursodrag drop-turma' id='$id'>$curso->nome</div>";
                             }
                             ?>
                         </div>
