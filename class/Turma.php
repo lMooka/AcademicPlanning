@@ -1,6 +1,7 @@
-<?php
+﻿<?php
 
 require_once(__DIR__.'/../libs/RedBean/setup.php');
+require_once(__DIR__.'/../config.php');
 
 class Turma	{
 
@@ -49,6 +50,18 @@ class Turma	{
 	
 	public function SetDocente($id_docente){
 		$crtotal = 0;
+		
+		if (isset($this->materia) && $this->materia->id > 0){ //verifica se ao tentar adicionar docente ultrapassa o CR máximo do docente
+			$turmas = R::find('turma',"docente_id = $id_docente");
+			foreach ($turmas as $t){
+				$crtotal += $t->bean->materia->credito;
+			}
+			
+			if ($crtotal + $this->materia->credito > MAX_CR){
+				throw new Exception("Docente excederá o máximo de CR permitido.");
+			}
+		}
+		
 		$this->docente = R::load('docente', $id_docente);
 	}
 	

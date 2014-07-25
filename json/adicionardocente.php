@@ -9,7 +9,12 @@ $id_docente = $_POST['docente'];
 //$id = $_POST['nome'];
 $turma = new Turma();
 $turma->Carregar($id_turma);
-$turma->SetDocente($id_docente);
+try{
+	$turma->SetDocente($id_docente);
+}catch (Exception $e) {
+	$return['error'] = $e->getMessage();
+}
+
 $turma->Salvar();
 
 

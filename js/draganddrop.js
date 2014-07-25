@@ -61,7 +61,9 @@ function MateriaDrop(id_materia) { //criar uma nova turma
 function DocenteDrop(id_docente, id_turma) {
     $.post("/json/adicionardocente.php", { docente: id_docente, turma: id_turma })
 	.done(function (data) {
+		
 	    result = $.parseJSON(data);
+		
 	    var nomeDocente = result['docente'];
 	    var local = "tr#" + id_turma;
 
