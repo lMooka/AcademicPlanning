@@ -1,5 +1,16 @@
 $(function () {
 
+	$('td.docente, td.ref, td.curso, td.disciplina').hover(function(){
+		if ($(this).html()){
+			$(this).children().remove();
+			btnstring = '<button type="button" class="btn btn-primary btn-xs" style="font-size: 8px;opacity:0.6;">X</button>';
+			$(btnstring).appendTo($(this)).hide().fadeIn('slow');
+		}
+	}, function(){
+		$(this).children().fadeOut();
+		//$(this).children().remove();
+	});
+	
 	//$("#materiascol").draggable();
 	$("#docentescol").dialog({ autoOpen: false });
 	$("#materiascol").dialog({ autoOpen: false });
@@ -71,6 +82,22 @@ $(function () {
 
 
 //===== FUNCÇÕES PARA APÓS DROP NA TABELA
+
+function CursoDrop(id_curso,id_turma){
+	$.post("/json/adicionarcurso.php", { curso: id_docente, turma: id_turma })
+	.done(function (data) {
+		
+	    result = $.parseJSON(data);
+		if(result['error']){
+			MostraErro(result['error']);
+		}
+	    var nomeCurso = result['curso'];
+	    var local = "tr#" + id_turma;
+
+	    $(local).children('.curso').html(nomeCurso).hide().fadeIn('slow');
+	});
+}
+
 function MateriaDrop(id_materia) { //criar uma nova turma
     $.post("/json/adicionarturma.php", { materia: id_materia })
 	.done(function (data) {
