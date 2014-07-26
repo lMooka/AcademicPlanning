@@ -1,6 +1,7 @@
 <?php
 error_reporting(0);
 require_once(__DIR__.'/libs/RedBean/setup.php');
+require_once(__DIR__.'/class/Horario.php');
 ?>
 <html>
 <head>
@@ -50,14 +51,10 @@ require_once(__DIR__.'/libs/RedBean/setup.php');
                 <tr>
                     <th>Disciplina</th>
                     <th>Curso</th>
-                    <th>Seg</th>
-                    <th>Ter</th>
-                    <th>Qua</th>
-                    <th>Qui</th>
-                    <th>Sex</th>
                     <th>Docente</th>
                     <th>CR</th>
                     <th>Nome Disciplina</th>
+					<th>Horarios</th>
                 </tr>
             </thead>
 
@@ -80,9 +77,20 @@ require_once(__DIR__.'/libs/RedBean/setup.php');
             //PREENCHE TABELA COM TURMAS JÁ CRIADAS
             $turmas = R::findAll('turma');
             
+			
             foreach($turmas as $id => $turma) {
-                
-                echo "<tr id='$id'>	<td class='ref'>".$turma->materia->ref."</td>	<td class='curso'>".$turma->curso->nome."</td>	<td class='seg'></td>	<td class='ter'></td>	<td class='qua'></td>	<td class='qui'></td>	<td class='sex'></td>	<td class='docente'>".$turma->docente->nome."</td>	<td class='credito'>".$turma->materia->credito."</td>	<td class='disciplina'>".$turma->materia->nome."</td>	</tr>";
+				$horariostr = '';
+                $horarios = R::find('horario', "turma_id = $turma->id");
+				foreach ($horarios as $h){
+					$HR = new Horario();
+					
+					$HR->Carregar($h->id);
+					$str = $HR->GetString();
+					
+					$horariostr .= '<span class="label label-primary">'.$str.' <span id="'.$h->id.'" class="remove-horario" style="height:100%;margin-left:3px;padding-left:2px;font-size:9px;border-left: 1px solid #7FA4CE;color: #CCDEF3;"> X</span> </span>';
+					
+				}
+                echo "<tr id='$id'>	<td class='ref'>".$turma->materia->ref."</td>	<td class='curso'>".$turma->curso->nome."</td>	<td class='docente'>".$turma->docente->nome."</td>	<td class='credito'>".$turma->materia->credito."</td>	<td class='disciplina'>".$turma->materia->nome."</td> <td class='horario'>".$horariostr."</td></tr>";
             }
             ?>
         </table>
@@ -206,7 +214,7 @@ require_once(__DIR__.'/libs/RedBean/setup.php');
 
 
                         <div class="panel-body" id='panelhorario'>
-                            <div class="well well-sm item-horario drop-turma"> Dia: <select> <onption value="1">Segunda-feira</option> <option value="2">Terça-feira</option> </select> <br/><hr> Inicio: <input class="text-horario" size="5" ></br><hr> Fim:<input class="text-horario" size="5" ></div>
+                            <div id='divhorario'> <div class="well well-sm" style='float: left;'> Dia: <select id='dia'> <option value="1">Segunda-feira</option> <option value="2">Terça-feira</option> <option value="3">Quarta-feira</option> <option value="4">Quinta-feira</option> <option value="5">Sexta-feira</option> <option value="6">Sábado</option></select> Inicio: <input class="text-horario" size="5" id='inicio'> Fim:<input class="text-horario" size="5" id='fim'> <button type="button" class="btn btn-success btn-xs btn-salva">✓</button> <button type="button" class="btn btn-danger btn-xs btn-remove">✖</button></div> </div>
 
                         </div>
                     </div>

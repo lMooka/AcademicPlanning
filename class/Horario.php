@@ -10,18 +10,50 @@ class Horario {
 	private $turma; // (bean) turma
 	public $bean;
 	
-	function __construct($dia_,$inicio_,$fim_,$turma_id){
 	
-		if ($this->subtraiHoras($inicio_,$fim_)<= 0 ) throw new Exception("Horário inválido");
-		if ($dia_ > 6 || $dia_ <1) throw new Exception("Dia inválido");
-		//Valida se não existe um horário "dentro de outro"
-		
-		
-		
-		$this->dia = $dia_;
-		$this->inicio = $inicio_;
-		$this->fim = $fim_;
-		$this->turma = R::load('turma',$turma_id);
+	
+	
+	function __construct($dia_ = NULL,$inicio_ = NULL,$fim_ = NULL,$turma_id = NULL){
+		if ($dia_){
+			if ($this->subtraiHoras($inicio_,$fim_)<= 0 ) throw new Exception("Horário inválido");
+			if ($dia_ > 6 || $dia_ <1) throw new Exception("Dia inválido");
+			//Valida se não existe um horário "dentro de outro"
+			
+			
+			
+			$this->dia = $dia_;
+			$this->inicio = $inicio_;
+			$this->fim = $fim_;
+			$this->turma = R::load('turma',$turma_id);
+		}
+	}
+	
+	public function GetString(){
+		$dia = '';
+		switch($this->dia){
+			case 1: 
+				$dia = 'SEG';
+				break;
+			case 2: 
+				$dia = 'TER';
+				break;
+			case 3: 
+				$dia = 'QUA';
+				break;
+			case 4: 
+				$dia = 'QUI';
+				break;
+			case 5: 
+				$dia = 'SEX';
+				break;
+			case 6: 
+				$dia = 'SAB';
+				break;
+				
+		}
+		$strReturn = $dia.' '.$this->inicio.' - '.$this->fim;
+	
+		return $strReturn;
 	}
 	
 	public function Salvar(){
@@ -29,10 +61,40 @@ class Horario {
 		$turmaid = $this->turma->id;
 		$horarios = R::find('horario', "turma_id = $turmaid AND dia = $this->dia");
 		foreach ($horarios as $h){
-			if (((strtotime($h->inicio) <  strtotime($this->inicio)) && (strtotime($this->inicio) < strtotime($h->fim)))  ||  ((strtotime($h->inicio) < strtotime($this->fim)) && (strtotime($this->fim) < strtotime($h->fim))){
+			if (((strtotime($h->inicio) <=  strtotime($this->inicio)) && (strtotime($this->inicio) <= strtotime($h->fim)))  ||  ((strtotime($h->inicio) <= strtotime($this->fim)) && (strtotime($this->fim) <= strtotime($h->fim)))){
 				throw new Exception("Choque de horários da mesma matéria");
 			}
 		}
+		
+		//Valida choque de horario do docente
+		$docenteid = $this->turma->docente->id;
+		$turmas = R::find('turma', "docente_id = $docenteid");
+		
+		if (!empty($turmas)){
+			$strturmas = 'turma_id = ';
+			$count = 1;
+			foreach($turmas as $t){
+				if ($count > 1) $strturmas += 'OR turma_id = ';
+				$strturmas += "$t->id ";
+				$count++;
+			}
+			
+
+			$horarios = R::find('horario', "$strturmas AND dia = $this->dia");
+			
+			foreach ($horarios as $h){
+				
+
+				if (((strtotime($h->inicio) <=  strtotime($this->inicio)) && (strtotime($this->inicio) <= strtotime($h->fim)))  ||  ((strtotime($h->inicio) <= strtotime($this->fim)) && (strtotime($this->fim) <= strtotime($h->fim)))){
+					$materia = $h->turma->materia->nome;
+					throw new Exception("Choque de horários do docente (turma de $materia: $h->inicio - $h->fim )");
+				}
+			}
+		}
+		
+		
+		
+		
 		$horario = R::dispense('horario');
 		if (!$this->id) $this->id = 0; //se id não foi setado é um novo horario (id = 0)
 		$horario->dia = $this->dia;
@@ -44,6 +106,7 @@ class Horario {
 	}
 	
 	public function Carregar($_id){
+	
 		$horario = R::load('horario',$_id);
 		$this->dia = $horario->dia;
 		$this->inicio = $horario->inicio;

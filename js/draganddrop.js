@@ -1,17 +1,80 @@
 $(function () {
+	//click para salvar horario
+		$(document).on('click', '.btn-salva', function(){
+			var inicio,fim,dia;
+			
+			id_turma = $(this).parent().parent().parent().parent().attr('id');
+			inicio = $(this).parent().children('#inicio').val();
+			fim = $(this).parent().children('#fim').val();
+			dia = $(this).parent().children('#dia').val();
+			$(this).parent().parent().remove();
+			
+			$.post("/json/adicionarhorario.php", { inicio: inicio, fim: fim, dia: dia, turma: id_turma })
+			.done(function (data) {
+				
+				result = $.parseJSON(data);
+				if(result['error']){
+					MostraErro(result['error']);
+				}else{
+					var horario = result['horario'];
+					var strtag = '<span class="label label-primary">'+horario+' 	<span id="'+result['id']+'" class="remove-horario" style="height:100%;margin-left:3px;padding-left:2px;font-size:9px;border-left: 1px solid #7FA4CE;color: #CCDEF3;"> X</span>				</span>';
+					var local = "tr#" + id_turma;
+					$(local).children('.horario').append(strtag).hide().fadeIn('slow');
+				}
+				
+				
+				
+			});
+			
+		});
 
+
+	//remover campo de adicionar horario
+	$(document).on('click', '.btn-remove', function(){
+		$(this).parent().parent().remove();
+	});
+
+	//botões de incluir horario na tabela
+	$('.horario').hover(function(){
+	var count = 0;
+		$(this).children('.newhorario').each(function(){
+			count++;
+		});
+		if (count===0){
+			btnstring = '<button type="button" class="btn btn-primary btn-xs btn-horario">+</button>';
+			$(btnstring).appendTo($(this)).hide().fadeIn(200);
+		}
+	}, function(){
+		$(this).children('.btn-horario').fadeOut(200);
+	});
+	
+	//click no botão add horario
+	$(document).on('click', '.btn-horario', function(){
+		$(this).parent().append('<div class="newhorario" style="font-size: 10px;width: 350px;">'+$('#divhorario').html()+'</div>');
+		$(this).remove();
+		Masks();
+	});	
+	
+	$(document).on('keypress', '.newhorario', function(e){
+		if(e.which == 13) {
+        alert('You pressed enter!');
+		}
+	});
+
+	//botões de excluir na tabela
 	$('td.docente, td.ref, td.curso, td.disciplina').hover(function(){
 		if ($(this).html()){
 			$(this).children().remove();
-			btnstring = ' <button type="button" class="btn btn-primary btn-xs" style="font-size: 8px;opacity:0.6;">X</button>';
-			$(btnstring).appendTo($(this)).hide().fadeIn('slow');
+			btnstring = ' <button type="button" class="btn btn-primary btn-xs" style="font-size: 8px;opacity:0.6;margin-left: 4px;">X</button>';
+			$(btnstring).appendTo($(this)).hide().fadeIn(200);
 		}
 	}, function(){
-		$(this).children().fadeOut();
-		//$(this).children().remove();
+		$(this).children().fadeOut(200);
+
 	});
 	
-	//$("#materiascol").draggable();
+	
+	
 	$("#docentescol").dialog({ autoOpen: false });
 	$("#materiascol").dialog({ autoOpen: false });
 	$("#cursoscol").dialog({ autoOpen: false });
@@ -84,7 +147,7 @@ $(function () {
 //===== FUNCÇÕES PARA APÓS DROP NA TABELA
 
 function CursoDrop(id_curso,id_turma){
-	$.post("/json/adicionarcurso.php", { curso: id_docente, turma: id_turma })
+	$.post("/json/adicionarcurso.php", { curso: id_curso, turma: id_turma })
 	.done(function (data) {
 		
 	    result = $.parseJSON(data);
@@ -103,7 +166,7 @@ function MateriaDrop(id_materia) { //criar uma nova turma
 	.done(function (data) {
 
 	    result = $.parseJSON(data);
-	    var novaLinha = '<tr id="' + result['id'] + '">	<td class="ref">' + result['ref'] + '</td> <td class="curso"></td>	<td class="seg"></td>	<td class="ter"></td>	<td class="qua"></td>	<td class="qui"></td>	<td class="sex"></td>	<td class="docente"></td>	<td class="credito">' + result['credito'] + '</td>	<td class="disciplina">' + result['disciplina'] + '</td>	</tr>';
+	    var novaLinha = '<tr id="' + result['id'] + '">	<td class="ref">' + result['ref'] + '</td> <td class="curso"></td>	<td class="docente"></td>	<td class="credito">' + result['credito'] + '</td>	<td class="disciplina">' + result['disciplina'] + '</td> <td class="horario"></td>	</tr>';
 	    $(novaLinha).appendTo($("#planilha")).hide().fadeIn('slow');
 	    Droppables();
 	});
@@ -224,6 +287,12 @@ function Droppables() {
 
 				if (ui.draggable.hasClass('item-horario')) {
 					HorarioDrop();
+				}
+				
+				if (ui.draggable.hasClass('cursodrag')){
+					var id_curso = ui.draggable.attr('id');
+					var id_turma = $(this).attr('id');
+					CursoDrop(id_curso,id_turma);
 				}
 				
 				

@@ -13,16 +13,19 @@ $str2 = "09:51";
 $time = strtotime($str);
 $time2 = strtotime($str2);
 
-echo $time;
-echo '    ';
-echo $time2;echo '    ';
+
 
 //echo date('h:i',$time);
 
 //echo date('h:i', $time);
 
-$h = new Horario(1,'08:00','09:00',22);
-$h->Salvar();
+try{
+$h = new Horario();
+$h->Carregar(12);
+echo $h->GetString();
+}catch(Exception $e){
+	echo $e->getMessage();
+}
 
 //somaHoras(array('09:51', '02:03'));
 ?>
