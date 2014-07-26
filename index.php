@@ -210,11 +210,11 @@ require_once(__DIR__.'/class/Horario.php');
 
             <div class="col-lg-2">
                 <div class="bs-component">
-                    <div class="panel panel-primary" id='horarioscol' title='HORÁRIOS'>
+                    <div class="panel panel-primary" id='horarioscol' title='HORÁRIOS' style='display: none;'>
 
 
-                        <div class="panel-body" id='panelhorario'>
-                            <div id='divhorario'> <div class="well well-sm" style='float: left;'> Dia: <select id='dia'> <option value="1">Segunda-feira</option> <option value="2">Terça-feira</option> <option value="3">Quarta-feira</option> <option value="4">Quinta-feira</option> <option value="5">Sexta-feira</option> <option value="6">Sábado</option></select> Inicio: <input class="text-horario" size="5" id='inicio'> Fim:<input class="text-horario" size="5" id='fim'> <button type="button" class="btn btn-success btn-xs btn-salva">✓</button> <button type="button" class="btn btn-danger btn-xs btn-remove">✖</button></div> </div>
+                        <div class="panel-body" id='panelhorario' >
+                            <div id='divhorario' > <div class="well well-sm" style='float: left;'> Dia: <select id='dia'> <option value="1">Segunda-feira</option> <option value="2">Terça-feira</option> <option value="3">Quarta-feira</option> <option value="4">Quinta-feira</option> <option value="5">Sexta-feira</option> <option value="6">Sábado</option></select> Inicio: <input class="text-horario" size="5" id='inicio'> Fim:<input class="text-horario" size="5" id='fim'> <button type="button" class="btn btn-success btn-xs btn-salva">✓</button> <button type="button" class="btn btn-danger btn-xs btn-remove">✖</button></div> </div>
 
                         </div>
                     </div>
