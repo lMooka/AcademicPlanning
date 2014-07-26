@@ -73,12 +73,12 @@ $(function () {
 
 	});
 	
-	
-	
 	$("#docentescol").dialog({ autoOpen: false });
 	$("#materiascol").dialog({ autoOpen: false });
 	$("#cursoscol").dialog({ autoOpen: false });
-	
+	$("#div-add-docente").dialog({autoOpen: false});
+	$("#div-add-materia").dialog({autoOpen: false});
+	$("#div-add-curso").dialog({autoOpen: false});
 	
 	$("#btnDocentes").click(function(){
 		$("#docentescol").dialog('open');
@@ -97,7 +97,6 @@ $(function () {
 		$('.ui-dialog').css('z-index','10');
 	});
 	
-	
     $('#addhorario').click(function () {
         NovoHorario();
     });
@@ -110,28 +109,20 @@ $(function () {
         NovoDocente();
     });
 
-    $('#btnAddMatCancelar').click(function () {
-        $("#btnMostrarDivMateria").removeClass('hidden');
-        $("#div-add-materia").addClass('hidden');
-    });
-
     $('#btnMostrarDivMateria').click(function () {
-        
-
-        $("#btnMostrarDivMateria").addClass('hidden');
-        $("#div-add-materia").removeClass('hidden');
-    });
-
-    $('#btnAddDocCancelar').click(function () {
-        $("#btnMostrarDivDocente").removeClass('hidden');
-        $("#div-add-docente").addClass('hidden');
+		$("#div-add-materia").dialog('open');
+		$('.ui-dialog').css('z-index','10');
     });
 
     $('#btnMostrarDivDocente').click(function () {
-        $("#btnMostrarDivDocente").addClass('hidden');
-        $("#div-add-docente").removeClass('hidden');
+		$("#div-add-docente").dialog('open');
+		$('.ui-dialog').css('z-index','10');
     });
-
+	
+	$('#btnMostrarDivCurso').click(function () {
+		$("#div-add-curso").dialog('open');
+		$('.ui-dialog').css('z-index','10');
+    });
 
     Droppables();
     Draggables();
