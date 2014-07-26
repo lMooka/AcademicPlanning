@@ -202,13 +202,11 @@ require_once(__DIR__.'/libs/RedBean/setup.php');
 
             <div class="col-lg-2">
                 <div class="bs-component">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Horário</h3>
-                        </div>
+                    <div class="panel panel-primary" id='horarioscol' title='HORÁRIOS'>
+
 
                         <div class="panel-body" id='panelhorario'>
-                            <button type="button" class="btn btn-primary" id='addhorario'>Adicionar</button>
+                            <div class="well well-sm item-horario drop-turma"> Dia: <select> <onption value="1">Segunda-feira</option> <option value="2">Terça-feira</option> </select> <br/><hr> Inicio: <input class="text-horario" size="5" ></br><hr> Fim:<input class="text-horario" size="5" ></div>
 
                         </div>
                     </div>
