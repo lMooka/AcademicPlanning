@@ -54,7 +54,7 @@ require_once(__DIR__.'/class/Horario.php');
                     <th>Docente</th>
                     <th>CR</th>
                     <th>Nome Disciplina</th>
-					<th>Horarios</th>
+					<th >Horarios</th>
                 </tr>
             </thead>
 
@@ -87,10 +87,10 @@ require_once(__DIR__.'/class/Horario.php');
 					$HR->Carregar($h->id);
 					$str = $HR->GetString();
 					
-					$horariostr .= '<span class="label label-primary">'.$str.' <span id="'.$h->id.'" class="remove-horario" style="height:100%;margin-left:3px;padding-left:2px;font-size:9px;border-left: 1px solid #7FA4CE;color: #CCDEF3;"> X</span> </span>';
+					$horariostr .= '<div style="display:inline-block; margin-top: 2px;" class="label label-primary">'.$str.' <span id="'.$h->id.'" class="remove-horario" style="cursor:pointer;height:100%;margin-left:3px;padding-left:2px;font-size:9px;border-left: 1px solid #7FA4CE;color: #CCDEF3;"> X</span> </div>';
 					
 				}
-                echo "<tr id='$id'>	<td class='ref'>".$turma->materia->ref."</td>	<td class='curso'>".$turma->curso->nome."</td>	<td class='docente'>".$turma->docente->nome."</td>	<td class='credito'>".$turma->materia->credito."</td>	<td class='disciplina'>".$turma->materia->nome."</td> <td class='horario'>".$horariostr."</td></tr>";
+                echo "<tr id='$id'>	<td class='ref'>".$turma->materia->ref."</td>	<td class='curso'>".$turma->curso->nome."</td>	<td class='docente'>".$turma->docente->nome."</td>	<td class='credito'>".$turma->materia->credito."</td>	<td class='disciplina'>".$turma->materia->nome."</td> <td class='horario' style='max-width:300px;'>".$horariostr."</td></tr>";
             }
             ?>
         </table>

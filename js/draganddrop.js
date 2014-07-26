@@ -17,7 +17,7 @@ $(function () {
 					MostraErro(result['error']);
 				}else{
 					var horario = result['horario'];
-					var strtag = '<span class="label label-primary">'+horario+' 	<span id="'+result['id']+'" class="remove-horario" style="height:100%;margin-left:3px;padding-left:2px;font-size:9px;border-left: 1px solid #7FA4CE;color: #CCDEF3;"> X</span>				</span>';
+					var strtag = '<span style="display:inline-block; margin-top: 2px;" class="label label-primary">'+horario+' 	<span id="'+result['id']+'" class="remove-horario" style="cursor:pointer;height:100%;margin-left:3px;padding-left:2px;font-size:9px;border-left: 1px solid #7FA4CE;color: #CCDEF3;"> X</span>				</span>';
 					var local = "tr#" + id_turma;
 					$(local).children('.horario').append(strtag).hide().fadeIn('slow');
 				}
@@ -41,7 +41,7 @@ $(function () {
 			count++;
 		});
 		if (count===0){
-			btnstring = '<button type="button" class="btn btn-primary btn-xs btn-horario">+</button>';
+			btnstring = '<button type="button" class="btn btn-primary btn-xs btn-horario" style="height: 18px;">+</button>';
 			$(btnstring).appendTo($(this)).hide().fadeIn(200);
 		}
 	}, function(){
@@ -65,7 +65,7 @@ $(function () {
 	$('td.docente, td.ref, td.curso, td.disciplina').hover(function(){
 		if ($(this).html()){
 			$(this).children().remove();
-			btnstring = ' <button type="button" class="btn btn-primary btn-xs" style="font-size: 8px;opacity:0.6;margin-left: 4px;">X</button>';
+			btnstring = ' <button type="button" class="btn btn-danger btn-xs" style="font-size: 8px;opacity:0.6;margin-left: 4px;">X</button>';
 			$(btnstring).appendTo($(this)).hide().fadeIn(200);
 		}
 	}, function(){
