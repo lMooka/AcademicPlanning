@@ -321,16 +321,25 @@ function NovoCurso() {
 }
 
 
-function DescadastrarMateria(_id) {
-    $.post("/json/descadastrarmateria.php", { id: _id });
+function DescadastrarMateria(doc) {
+    $.post("/json/descadastrarmateria.php", { id: doc.id })
+        .done(function (data) {
+            $(doc).parent().attr("style", "display: none;");
+        });
 }
 
-function DescadastrarDocente(_id) {
-    $.post("/json/descadastrardocente.php", { id: _id });
+function DescadastrarDocente(doc) {
+    $.post("/json/descadastrardocente.php", { id: doc.id })
+        .done(function (data) {
+            $(doc).parent().attr("style", "display: none;");
+        });
 }
 
-function DescadastrarCurso(_id) {
-    $.post("/json/descadastrarcurso.php", { id: _id });
+function DescadastrarCurso(doc) {
+    $.post("/json/descadastrarcurso.php", { id: doc.id })
+        .done(function (data) {
+            $(doc).parent().attr("style", "display: none;");
+        });
 }
 
 

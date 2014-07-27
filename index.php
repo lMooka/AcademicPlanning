@@ -150,7 +150,7 @@ require_once(__DIR__.'/class/Horario.php');
 
                             foreach($materias as $id=>$materia){
                                 echo "<div class='well well-sm materiadrag btn-fade' id='$id'>$materia->ref &nbsp".
-                                "<button type='button' onclick='DescadastrarMateria(this.id)' class='btn btn-primary btn-xs' style='font-size: 15px; display: none;' id='$id'>x</button>".
+                                "<button type='button' onclick='DescadastrarMateria(this)' class='btn btn-primary btn-xs' style='font-size: 15px; display: none;' id='$id'>x</button>".
                                 "</div>";
                             }
                             ?>
@@ -166,7 +166,7 @@ require_once(__DIR__.'/class/Horario.php');
                             $docentes = R::findAll('docente');
                             foreach ($docentes as $id => $docente){
                                 echo "<div class='well well-sm docentedrag drop-turma btn-fade' id='$id'>$docente->nome &nbsp".
-                                "<button type='button' onclick='DescadastrarDocente(this.id)' class='btn btn-primary btn-xs' style='font-size: 15px; display: none;' id='$id'>x</button>".
+                                "<button type='button' onclick='DescadastrarDocente(this)' class='btn btn-primary btn-xs' style='font-size: 15px; display: none;' id='$id'>x</button>".
                                 "</div>";
                             }
                             ?>
@@ -182,7 +182,7 @@ require_once(__DIR__.'/class/Horario.php');
                             $cursos = R::findAll('curso');
                             foreach ($cursos as $id => $curso){
                                 echo "<div class='well well-sm cursodrag drop-turma btn-fade' id='$id'>$curso->nome".
-                                "<button type='button' onclick='DescadastrarCurso(this.id)' class='btn btn-primary btn-xs' style='font-size: 15px; display: none;' id='$id'>x</button>".
+                                "<button type='button' onclick='DescadastrarCurso(this)' class='btn btn-primary btn-xs' style='font-size: 15px; display: none;' id='$id'>x</button>".
                                 "</div>";
                             }
                             ?>
