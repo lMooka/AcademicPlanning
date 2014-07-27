@@ -13,7 +13,6 @@ $(function () {
 			.done(function (data) {
 				
 				result = $.parseJSON(data);
-				
 				if(result['error']){
 					MostraErro(result['error']);
 				}else{
@@ -36,22 +35,6 @@ $(function () {
 	});
 
 	//botões de incluir horario na tabela
-	$(document).on('mouseenter', '.horario', function(){
-		var count = 0;
-		$(this).children('.newhorario').each(function(){
-			count++;
-		});
-		if (count===0){
-			btnstring = '<button type="button" class="btn btn-primary btn-xs btn-horario" style="height: 18px;">+</button>';
-			$(btnstring).appendTo($(this)).hide().fadeIn(200);
-		}
-	});
-	
-	$(document).on('mouseleave', '.horario', function(){
-		$(this).children('.btn-horario').fadeOut(200);
-	});
-	
-	/*
 	$('.horario').hover(function(){
 	var count = 0;
 		$(this).children('.newhorario').each(function(){
@@ -65,15 +48,12 @@ $(function () {
 		$(this).children('.btn-horario').fadeOut(200);
 	});
 	
-	*/
-	
 	//click no botão add horario
 	$(document).on('click', '.btn-horario', function(){
 		$(this).parent().append('<div class="newhorario" style="font-size: 10px;width: 350px;">'+$('#divhorario').html()+'</div>');
 		$(this).remove();
 		Masks();
 	});	
-	
 	
 	$(document).on('keypress', '.newhorario', function(e){
 		if(e.which == 13) {
@@ -93,48 +73,23 @@ $(function () {
 
 	});
 	
-		//click botões de excluir
+	//click botões de excluir
 	$(document).on('click', '.btn-excluir', function(e){
 		//if ($(this).parent().hasClass('curso')){
 		var turmaid = $(this).parent().parent().attr('id')
 		var classe = $(this).parent().attr("class");
-		
 		switch (classe){
 			case 'curso':
-				$(this).parent().html('');
-				$.post("/json/removercurso.php", { turma: turmaid })
-				.done(function (data) {
-					
-					
-				});
+				alert('apagar curso da materia'+turmaid);
 				break;
 			case 'docente':
-				$(this).parent().html('');
-				$.post("/json/removerdocente.php", { turma: turmaid })
-				.done(function (data) {
-					
-					
-				});
 				break;
-			case 'ref':
-				$(this).parent().parent().html('');
-				$.post("/json/removerturma.php", { turma: turmaid })
-				.done(function (data) {
-					
-					
-				});
-				break;
-			case 'disciplina':
-				$(this).parent().parent().html('');
-				$.post("/json/removerturma.php", { turma: turmaid })
-				.done(function (data) {
-					
-					
-				});
+			case '';
 				break;
 		}
 		//}
 	});
+	
 	
 	
 	$("#docentescol").dialog({ autoOpen: false });
@@ -324,7 +279,6 @@ function Droppables() {
 			$('#table').css("border","");
 
             MateriaDrop(id_materia);
-			
         },
 		over: function(){
 			$('#table').css("border","2px solid blue");
@@ -404,9 +358,6 @@ function Draggables() {
 
 
 }
-
-
-
 
 function Masks() {
     $('.text-horario').mask('29:59', { translation: { '2': { pattern: /[0-2]/, optional: false }, '5': { pattern: /[0-5]/, optional: false } } });

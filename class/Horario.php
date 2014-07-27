@@ -61,13 +61,14 @@ class Horario {
 		$turmaid = $this->turma->id;
 		$horarios = R::find('horario', "turma_id = $turmaid AND dia = $this->dia");
 		foreach ($horarios as $h){
-			if (((strtotime($h->inicio) <=  strtotime($this->inicio)) && (strtotime($this->inicio) <= strtotime($h->fim)))  ||  ((strtotime($h->inicio) <= strtotime($this->fim)) && (strtotime($this->fim) <= strtotime($h->fim)))){
+			if (((strtotime($h->inicio) <=  strtotime($this->inicio)) && (strtotime($this->inicio) < strtotime($h->fim)))  ||  ((strtotime($h->inicio) < strtotime($this->fim)) && (strtotime($this->fim) <= strtotime($h->fim)))){
 				throw new Exception("Choque de horários da mesma matéria");
 			}
 		}
 		
 		//Valida choque de horario do docente
 		$docenteid = $this->turma->docente->id;
+		if ($docenteid){
 		$turmas = R::find('turma', "docente_id = $docenteid");
 		
 		if (!empty($turmas)){
@@ -85,11 +86,12 @@ class Horario {
 			foreach ($horarios as $h){
 				
 
-				if (((strtotime($h->inicio) <=  strtotime($this->inicio)) && (strtotime($this->inicio) <= strtotime($h->fim)))  ||  ((strtotime($h->inicio) <= strtotime($this->fim)) && (strtotime($this->fim) <= strtotime($h->fim)))){
+				if (((strtotime($h->inicio) <=  strtotime($this->inicio)) && (strtotime($this->inicio) < strtotime($h->fim)))  ||  ((strtotime($h->inicio) < strtotime($this->fim)) && (strtotime($this->fim) <= strtotime($h->fim)))){
 					$materia = $h->turma->materia->nome;
 					throw new Exception("Choque de horários do docente (turma de $materia: $h->inicio - $h->fim )");
 				}
 			}
+		}
 		}
 		
 		

@@ -1,7 +1,10 @@
 <?php
 error_reporting(0);
+
+
 require_once(__DIR__.'/../class/Turma.php');
 require_once(__DIR__.'/../class/Horario.php');
+
 
 $id_turma = $_POST['turma'];
 $inicio = $_POST['inicio'];
