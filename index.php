@@ -32,8 +32,8 @@ require_once(__DIR__.'/class/Horario.php');
             </button>
             <a class="navbar-brand" href="/index.php">Home</a>
         </div>
-        <button type="button" class="btn btn-default navbar-btn btn-primary" id="btnDocentes">Docentes</button>
         <button type="button" class="btn btn-default navbar-btn btn-primary" id="btnMaterias">Matérias</button>
+        <button type="button" class="btn btn-default navbar-btn btn-primary" id="btnDocentes">Docentes</button>
         <button type="button" class="btn btn-default navbar-btn btn-primary" id="btnCursos">Cursos</button>
         <button type="button" class="btn btn-default navbar-btn navbar-right btn-success">Fazer Login</button>
     </nav>
@@ -85,20 +85,6 @@ require_once(__DIR__.'/class/Horario.php');
         <div class="page-header">
             <div class="col-lg-2">
                 <div class="bs-component">
-                    <div class="panel panel-primary" id="materiascol" title="Matérias">
-                        <button type="button" class="btn btn-info btn-sm btn-right" id='btnMostrarDivMateria'>+</button>
-                        <div id="div-materias" class="panel-body" style='z-index: 10; overflow-y: scroll; height: 300px;'>
-                            <?php
-                            //PREENCHE COM MATÉRIAS DO BANCO
-                            $materias = R::findAll('materia');
-
-                            foreach($materias as $id=>$materia){
-                                echo "<div class='well well-sm materiadrag' id='$id'>$materia->ref</div>";
-                            }
-                            ?>
-                        </div>
-                    </div>
-
                     <!-- DIV ADD MATERIA -->
                     <div class="panel panel-primary" id="div-add-materia" style="z-index: 10;" title="Adicionar Matéria">
                         <div class="panel-body">
@@ -152,7 +138,24 @@ require_once(__DIR__.'/class/Horario.php');
                         </div>
                     </div>
 
-                    <!-- DIVS DE LISTAS -->
+                    <!-- ===== DIVS DE LISTAS ===== -->
+
+                    <!-- DIV MATERIAS -->
+                    <div class="panel panel-primary" id="materiascol" title="Matérias">
+                        <button type="button" class="btn btn-info btn-sm btn-right" id='btnMostrarDivMateria'>+</button>
+                        <div id="div-materias" class="panel-body" style='z-index: 10; overflow-y: scroll; height: 300px;'>
+                            <?php
+                            //PREENCHE COM MATÉRIAS DO BANCO
+                            $materias = R::findAll('materia');
+
+                            foreach($materias as $id=>$materia){
+                                echo "<div class='well well-sm materiadrag' id='$id'>$materia->ref</div>";
+                            }
+                            ?>
+                        </div>
+                    </div>
+
+                    <!-- DIV DOCENTES -->
                     <div class="panel panel-primary" id="docentescol" title='Docentes'>
                         <button type="button" class="btn btn-info btn-sm btn-right" id='btnMostrarDivDocente'>+</button>
                         <div id='div-docentes' class="panel-body" style='z-index: 10; overflow-y: scroll; height: 300px;'>
@@ -166,6 +169,7 @@ require_once(__DIR__.'/class/Horario.php');
                         </div>
                     </div>
 
+                    <!-- DIV CURSOS -->
                     <div class="panel panel-primary" id="cursoscol" title='Cursos'>
                         <button type="button" class="btn btn-info btn-sm btn-right" id='btnMostrarDivCurso'>+</button>
                         <div id='div-cursos' class="panel-body" style='z-index: 10; overflow-y: scroll; height: 300px;'>
@@ -179,6 +183,7 @@ require_once(__DIR__.'/class/Horario.php');
                         </div>
                     </div>
 
+                    <!-- DIV HORARIO -->
                     <div class="panel panel-primary" id='horarioscol' title='HORÁRIOS' style='display: none;'>
                         <div class="panel-body" id='panelhorario'>
                             <div id='divhorario'>
