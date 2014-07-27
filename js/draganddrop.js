@@ -1,57 +1,57 @@
 $(function () {
-	//click para salvar horario
-		$(document).on('click', '.btn-salva', function(){
-			var inicio,fim,dia;
-			
-			id_turma = $(this).parent().parent().parent().parent().attr('id');
-			inicio = $(this).parent().children('#inicio').val();
-			fim = $(this).parent().children('#fim').val();
-			dia = $(this).parent().children('#dia').val();
-			$(this).parent().parent().remove();
-			
-			$.post("/json/adicionarhorario.php", { inicio: inicio, fim: fim, dia: dia, turma: id_turma })
-			.done(function (data) {
-				
-				result = $.parseJSON(data);
-				
-				if(result['error']){
-					MostraErro(result['error']);
-				}else{
-					var horario = result['horario'];
-					var strtag = '<span style="display:inline-block; margin-top: 2px;" class="label label-primary">'+horario+' 	<span id="'+result['id']+'" class="remove-horario" style="cursor:pointer;height:100%;margin-left:3px;padding-left:2px;font-size:9px;border-left: 1px solid #7FA4CE;color: #CCDEF3;"> X</span>				</span>';
-					var local = "tr#" + id_turma;
-					$(local).children('.horario').append(strtag).hide().fadeIn('slow');
-				}
-				
-				
-				
-			});
-			
-		});
+    //click para salvar horario
+    $(document).on('click', '.btn-salva', function () {
+        var inicio, fim, dia;
+
+        id_turma = $(this).parent().parent().parent().parent().attr('id');
+        inicio = $(this).parent().children('#inicio').val();
+        fim = $(this).parent().children('#fim').val();
+        dia = $(this).parent().children('#dia').val();
+        $(this).parent().parent().remove();
+
+        $.post("/json/adicionarhorario.php", { inicio: inicio, fim: fim, dia: dia, turma: id_turma })
+        .done(function (data) {
+
+            result = $.parseJSON(data);
+
+            if (result['error']) {
+                MostraErro(result['error']);
+            } else {
+                var horario = result['horario'];
+                var strtag = '<span style="display:inline-block; margin-top: 2px;" class="label label-primary">' + horario + ' 	<span id="' + result['id'] + '" class="remove-horario" style="cursor:pointer;height:100%;margin-left:3px;padding-left:2px;font-size:9px;border-left: 1px solid #7FA4CE;color: #CCDEF3;"> X</span>				</span>';
+                var local = "tr#" + id_turma;
+                $(local).children('.horario').append(strtag).hide().fadeIn('slow');
+            }
 
 
-	//remover campo de adicionar horario
-	$(document).on('click', '.btn-remove', function(){
-		$(this).parent().parent().remove();
-	});
 
-	//botões de incluir horario na tabela
-	$(document).on('mouseenter', '.horario', function(){
-		var count = 0;
-		$(this).children('.newhorario').each(function(){
-			count++;
-		});
-		if (count===0){
-			btnstring = '<button type="button" class="btn btn-primary btn-xs btn-horario" style="height: 18px;">+</button>';
-			$(btnstring).appendTo($(this)).hide().fadeIn(200);
-		}
-	});
-	
-	$(document).on('mouseleave', '.horario', function(){
-		$(this).children('.btn-horario').fadeOut(200);
-	});
-	
-	/*
+        });
+
+    });
+
+
+    //remover campo de adicionar horario
+    $(document).on('click', '.btn-remove', function () {
+        $(this).parent().parent().remove();
+    });
+
+    //botões de incluir horario na tabela
+    $(document).on('mouseenter', '.horario', function () {
+        var count = 0;
+        $(this).children('.newhorario').each(function () {
+            count++;
+        });
+        if (count === 0) {
+            btnstring = '<button type="button" class="btn btn-primary btn-xs btn-horario" style="height: 18px;">+</button>';
+            $(btnstring).appendTo($(this)).hide().fadeIn(200);
+        }
+    });
+
+    $(document).on('mouseleave', '.horario', function () {
+        $(this).children('.btn-horario').fadeOut(200);
+    });
+
+    /*
 	$('.horario').hover(function(){
 	var count = 0;
 		$(this).children('.newhorario').each(function(){
@@ -66,102 +66,102 @@ $(function () {
 	});
 	
 	*/
-	
-	//click no botão add horario
-	$(document).on('click', '.btn-horario', function(){
-		$(this).parent().append('<div class="newhorario" style="font-size: 10px;width: 350px;">'+$('#divhorario').html()+'</div>');
-		$(this).remove();
-		Masks();
-	});	
-	
-	
-	$(document).on('keypress', '.newhorario', function(e){
-		if(e.which == 13) {
-        alert('You pressed enter!');
-		}
-	});
 
-	//botões de excluir na tabela
-	$('td.docente, td.ref, td.curso, td.disciplina').hover(function(){
-		if ($(this).html()){
-			$(this).children().remove();
-			btnstring = ' <button type="button" class="btn btn-danger btn-xs btn-excluir" style="font-size: 8px;opacity:0.6;margin-left: 4px;">X</button>';
-			$(btnstring).appendTo($(this)).hide().fadeIn(200);
-		}
-	}, function(){
-		$(this).children().fadeOut(200);
+    //click no botão add horario
+    $(document).on('click', '.btn-horario', function () {
+        $(this).parent().append('<div class="newhorario" style="font-size: 10px;width: 350px;">' + $('#divhorario').html() + '</div>');
+        $(this).remove();
+        Masks();
+    });
 
-	});
-	
-		//click botões de excluir
-	$(document).on('click', '.btn-excluir', function(e){
-		//if ($(this).parent().hasClass('curso')){
-		var turmaid = $(this).parent().parent().attr('id')
-		var classe = $(this).parent().attr("class");
-		
-		switch (classe){
-			case 'curso':
-				$(this).parent().html('');
-				$.post("/json/removercurso.php", { turma: turmaid })
+
+    $(document).on('keypress', '.newhorario', function (e) {
+        if (e.which == 13) {
+            alert('You pressed enter!');
+        }
+    });
+
+    //botões de excluir na tabela
+    $('td.docente, td.ref, td.curso, td.disciplina').hover(function () {
+        if ($(this).html()) {
+            $(this).children().remove();
+            btnstring = ' <button type="button" class="btn btn-danger btn-xs btn-excluir" style="font-size: 8px;opacity:0.6;margin-left: 4px;">X</button>';
+            $(btnstring).appendTo($(this)).hide().fadeIn(200);
+        }
+    }, function () {
+        $(this).children().fadeOut(200);
+
+    });
+
+    //click botões de excluir
+    $(document).on('click', '.btn-excluir', function (e) {
+        //if ($(this).parent().hasClass('curso')){
+        var turmaid = $(this).parent().parent().attr('id')
+        var classe = $(this).parent().attr("class");
+
+        switch (classe) {
+            case 'curso':
+                $(this).parent().html('');
+                $.post("/json/removercurso.php", { turma: turmaid })
 				.done(function (data) {
-					
-					
+
+
 				});
-				break;
-			case 'docente':
-				$(this).parent().html('');
-				$.post("/json/removerdocente.php", { turma: turmaid })
+                break;
+            case 'docente':
+                $(this).parent().html('');
+                $.post("/json/removerdocente.php", { turma: turmaid })
 				.done(function (data) {
-					
-					
+
+
 				});
-				break;
-			case 'ref':
-				$(this).parent().parent().html('');
-				$.post("/json/removerturma.php", { turma: turmaid })
+                break;
+            case 'ref':
+                $(this).parent().parent().html('');
+                $.post("/json/removerturma.php", { turma: turmaid })
 				.done(function (data) {
-					
-					
+
+
 				});
-				break;
-			case 'disciplina':
-				$(this).parent().parent().html('');
-				$.post("/json/removerturma.php", { turma: turmaid })
+                break;
+            case 'disciplina':
+                $(this).parent().parent().html('');
+                $.post("/json/removerturma.php", { turma: turmaid })
 				.done(function (data) {
-					
-					
+
+
 				});
-				break;
-		}
-		//}
-	});
-	
-	
-	$("#docentescol").dialog({ autoOpen: false });
-	$("#materiascol").dialog({ autoOpen: false });
-	$("#cursoscol").dialog({ autoOpen: false });
-	+$("#div-add-docente").dialog({ autoOpen: false });
-	+$("#div-add-materia").dialog({ autoOpen: false });
-	+$("#div-add-curso").dialog({ autoOpen: false });
-	
-	$("#btnDocentes").click(function(){
-		$("#docentescol").dialog('open');
-		$('.ui-dialog').css('z-index','10');
-		
-	});
-	
-	$("#btnCursos").click(function(){
-		$("#cursoscol").dialog('open');
-		$('.ui-dialog').css('z-index','10');
-		
-	});
-	
-	$("#btnMaterias").click(function(){
-		$("#materiascol").dialog('open');
-		$('.ui-dialog').css('z-index','10');
-	});
-	
-	
+                break;
+        }
+        //}
+    });
+
+
+    $("#docentescol").dialog({ autoOpen: false });
+    $("#materiascol").dialog({ autoOpen: false });
+    $("#cursoscol").dialog({ autoOpen: false });
+    +$("#div-add-docente").dialog({ autoOpen: false });
+    +$("#div-add-materia").dialog({ autoOpen: false });
+    +$("#div-add-curso").dialog({ autoOpen: false });
+
+    $("#btnDocentes").click(function () {
+        $("#docentescol").dialog('open');
+        $('.ui-dialog').css('z-index', '10');
+
+    });
+
+    $("#btnCursos").click(function () {
+        $("#cursoscol").dialog('open');
+        $('.ui-dialog').css('z-index', '10');
+
+    });
+
+    $("#btnMaterias").click(function () {
+        $("#materiascol").dialog('open');
+        $('.ui-dialog').css('z-index', '10');
+    });
+
+
     $('#addhorario').click(function () {
         NovoHorario();
     });
@@ -172,6 +172,10 @@ $(function () {
 
     $('#btnAddDocente').click(function () {
         NovoDocente();
+    });
+
+    $('#btnAddCurso').click(function () {
+        NovoCurso();
     });
 
     $('#btnMostrarDivMateria').click(function () {
@@ -192,9 +196,6 @@ $(function () {
     Droppables();
     Draggables();
     Masks();
-    Droppables();
-    Draggables();
-    Masks();
 });
 
 
@@ -205,14 +206,14 @@ $(function () {
 
 //===== FUNCÇÕES PARA APÓS DROP NA TABELA
 
-function CursoDrop(id_curso,id_turma){
-	$.post("/json/adicionarcurso.php", { curso: id_curso, turma: id_turma })
+function CursoDrop(id_curso, id_turma) {
+    $.post("/json/adicionarcurso.php", { curso: id_curso, turma: id_turma })
 	.done(function (data) {
-		
+
 	    result = $.parseJSON(data);
-		if(result['error']){
-			MostraErro(result['error']);
-		}
+	    if (result['error']) {
+	        MostraErro(result['error']);
+	    }
 	    var nomeCurso = result['curso'];
 	    var local = "tr#" + id_turma;
 
@@ -234,11 +235,11 @@ function MateriaDrop(id_materia) { //criar uma nova turma
 function DocenteDrop(id_docente, id_turma) {
     $.post("/json/adicionardocente.php", { docente: id_docente, turma: id_turma })
 	.done(function (data) {
-		
+
 	    result = $.parseJSON(data);
-		if(result['error']){
-			MostraErro(result['error']);
-		}
+	    if (result['error']) {
+	        MostraErro(result['error']);
+	    }
 	    var nomeDocente = result['docente'];
 	    var local = "tr#" + id_turma;
 
@@ -285,6 +286,18 @@ function NovaMateria() {
     Masks();
 }
 
+function NovoCurso() {
+    var nome = $('#nomecurso').val();
+
+    $.post("/json/cadastrarcurso.php", { curso: nome })
+        .done(function (data) {
+            $('#nomecurso').val('');
+        });
+
+    Draggables();
+    Masks();
+}
+
 
 
 //====STRINGS
@@ -292,105 +305,102 @@ var novohorario = '<br/><div class="well well-sm item-horario drop-turma"> Dia: 
 
 function Droppables() {
     //======DROPPABLES
-	
-	
+
+    $('.ui-dialog-content').droppable({
+        accept: "div",
+        over: function (event, ui) {
 
 
-	$('.ui-dialog-content').droppable({
-		accept: "div",
-		over: function (event,ui){
-			
-			
-			$('table').droppable( "disable" );
-			$('tr').droppable( "disable" );
-			$('.info').removeClass('info');
-			$('#table').css("border","");
-			
-		},
+            $('table').droppable("disable");
+            $('tr').droppable("disable");
+            $('.info').removeClass('info');
+            $('#table').css("border", "");
 
-		out: function (event,ui){
-		
-			Droppables();
-		}
-	});
-	
-	    $('table').droppable({
+        },
+
+        out: function (event, ui) {
+
+            Droppables();
+        }
+    });
+
+    $('table').droppable({
         accept: ".materiadrag",
         drop: function (event, ui) {
             var id_materia = ui.draggable.attr('id');
-			$('#table').css("border","");
+            $('#table').css("border", "");
 
             MateriaDrop(id_materia);
-			
-        },
-		over: function(){
-			$('#table').css("border","2px solid blue");
-		},
 
-		out: function(){
-			$('#table').css("border","");
-		}
+        },
+        over: function () {
+            $('#table').css("border", "2px solid blue");
+        },
+
+        out: function () {
+            $('#table').css("border", "");
+        }
 
     });
-	
+
     $('tr').droppable({
         accept: ".drop-turma",
 
         drop: function (event, ui) {
 
-				if (ui.draggable.hasClass('docentedrag')) {
-					var id_docente = ui.draggable.attr('id');
-					var id_turma = $(this).attr('id');
+            if (ui.draggable.hasClass('docentedrag')) {
+                var id_docente = ui.draggable.attr('id');
+                var id_turma = $(this).attr('id');
 
-					DocenteDrop(id_docente, id_turma);
-				}
+                DocenteDrop(id_docente, id_turma);
+            }
 
-				if (ui.draggable.hasClass('item-horario')) {
-					HorarioDrop();
-				}
-				
-				if (ui.draggable.hasClass('cursodrag')){
-					var id_curso = ui.draggable.attr('id');
-					var id_turma = $(this).attr('id');
-					CursoDrop(id_curso,id_turma);
-				}
-				
-				
-			$(this).removeClass('info');
-            
-        },
-        over: function (event,ui) {
+            if (ui.draggable.hasClass('item-horario')) {
+                HorarioDrop();
+            }
 
-				$(this).addClass('info');
-				
+            if (ui.draggable.hasClass('cursodrag')) {
+                var id_curso = ui.draggable.attr('id');
+                var id_turma = $(this).attr('id');
+                CursoDrop(id_curso, id_turma);
+            }
+
+
+            $(this).removeClass('info');
 
         },
-        out: function (event,ui) {
+        over: function (event, ui) {
+
+            $(this).addClass('info');
+
+
+        },
+        out: function (event, ui) {
             $(this).removeClass('info');
         }
     });
-	
-	$('table').droppable( "enable" );
-	$('tr').droppable( "enable" );
-	
+
+    $('table').droppable("enable");
+    $('tr').droppable("enable");
+
 }
 
 function Draggables() {
     $(".drop-turma").draggable({
         revert: true,
-		helper:'clone',
-		appendTo: 'body',
-		zIndex: 101,
-		addClasses: false
+        helper: 'clone',
+        appendTo: 'body',
+        zIndex: 101,
+        addClasses: false
     });
 
     $(".materiadrag").draggable({
 
         revert: true,
-		helper:'clone',
-		appendTo: 'body',
-		zIndex: 100,
-		addClasses: false
+        helper: 'clone',
+        appendTo: 'body',
+        zIndex: 100,
+        addClasses: false
 
     });
 

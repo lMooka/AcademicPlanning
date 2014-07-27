@@ -6,10 +6,8 @@ class Curso	{
 
 	private $id; //id vindo do banco (int)
 	private $nome; //(string) 
-	private $bean; //bean do curso carregado
-	
-	
-	
+	public $bean; //bean do curso carregado
+		
 	function __construct($nome_ = null){
 		$this->nome = $nome_;
 	}
@@ -37,9 +35,6 @@ class Curso	{
 		$this->Carregar($_id);
 		R::trash($this->bean);
 	}
-	
-	
-	
 }
 
 ?>

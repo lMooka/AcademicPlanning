@@ -129,6 +129,20 @@ require_once(__DIR__.'/class/Horario.php');
                         </div>
                     </div>
 
+                    <!-- DIV ADD CURSOS -->
+                    <div class="panel panel-primary" id="div-add-curso" style="z-index: 10;" title='Adicionar Curso'>
+                        <div class="panel-body">
+                            <div class="input-group">
+                                <span class="input-group-addon">Nome</span>
+                                <input id='nomecurso' type="text" class="form-control" placeholder="ex. Sistemas de Informação">
+                            </div>
+                            <br />
+                            <span class="btn-group">
+                                <button type="button" class="btn btn-primary btn-group-sm" id='btnAddCurso'>Adicionar</button>
+                            </span>
+                        </div>
+                    </div>
+
                     <!-- DIVS DE LISTAS -->
                     <div class="panel panel-primary" id="docentescol" title='Docentes'>
                         <button type="button" class="btn btn-info btn-sm btn-right" id='btnMostrarDivDocente'>+</button>
