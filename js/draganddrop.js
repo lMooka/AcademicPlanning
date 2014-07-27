@@ -1,4 +1,16 @@
 $(function () {
+
+	//click remover horario
+	$(document).on('click', '.remove-horario', function () {
+		var horarioid = $(this).attr('id');
+		$(this).parent().remove();
+		$.post("/json/removerhorario.php", { horario: horarioid })
+        .done(function (data) {
+
+            
+        });
+	});
+
     //click para salvar horario
     $(document).on('click', '.btn-salva', function () {
         var inicio, fim, dia;
