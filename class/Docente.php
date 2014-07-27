@@ -6,7 +6,7 @@ class Docente	{
 
 	private $id; //id vindo do banco (int)
 	private $nome; //(string) 
-	private $bean; //bean do docente carregado
+	public $bean; //bean do docente carregado
 	
 	
 	function __construct($nome_ = null){

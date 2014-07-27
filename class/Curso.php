@@ -18,8 +18,8 @@ class Curso	{
 		if (!$this->id) $this->id = 0;
 		$curso->id = $this->id;
 		$curso->nome = $this->nome;
-		$curso->id = R::store($curso);
-		$curso->bean = R::load('curso',$this->id);
+		$this->id = R::store($curso);
+		$this->bean = R::load('curso',$this->id);
 	}
 	
 	public function Carregar($_id){

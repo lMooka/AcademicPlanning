@@ -1,15 +1,15 @@
 $(function () {
 
-	//click remover horario
-	$(document).on('click', '.remove-horario', function () {
-		var horarioid = $(this).attr('id');
-		$(this).parent().remove();
-		$.post("/json/removerhorario.php", { horario: horarioid })
+    //click remover horario
+    $(document).on('click', '.remove-horario', function () {
+        var horarioid = $(this).attr('id');
+        $(this).parent().remove();
+        $.post("/json/removerhorario.php", { horario: horarioid })
         .done(function (data) {
 
-            
+
         });
-	});
+    });
 
     //click para salvar horario
     $(document).on('click', '.btn-salva', function () {
@@ -284,7 +284,18 @@ function NovoDocente() {
 
     $.post("/json/cadastrardocente.php", { docente: nome })
         .done(function (data) {
+            r = $.parseJSON(data);
+
+            $("#div-docentes")
+                .html(
+                "<div class='well well-sm materiadrag btn-fade' id='" + r.id + "'>" + nome + " &nbsp" +
+                "<button type='button' onclick='DescadastrarCurso(this)' class='btn btn-primary btn-xs' style='font-size: 15px; display: none;' id='" + r.id + "'>x</button></div>" +
+                $("#div-materias").html());
+
             $('#nomedocente').val('');
+
+            Draggables();
+            Masks();
         });
 
     Draggables();
@@ -298,14 +309,21 @@ function NovaMateria() {
 
     $.post("/json/adicionarmateria.php", { matnome: nome, matcod: cod, matcr: cr })
         .done(function (data) {
-            //$("#div-materias").html($("#div-materias").html() + "<div class='well well-sm materiadrag'>" + cod + "</div>");
+            r = $.parseJSON(data);
+
+            $("#div-materias")
+                .html(
+                "<div class='well well-sm materiadrag btn-fade' id='"+r.id+"'>"+cod+" &nbsp" +
+                "<button type='button' onclick='DescadastrarMateria(this)' class='btn btn-primary btn-xs' style='font-size: 15px; display: none;' id='"+r.id+"'>x</button></div>" +
+                $("#div-materias").html());
+
             $('#matnome').val('');
             $('#matcod').val('');
             $('#matcr').val('');
-        });
 
-    Draggables();
-    Masks();
+            Draggables();
+            Masks();
+        });
 }
 
 function NovoCurso() {
@@ -313,11 +331,19 @@ function NovoCurso() {
 
     $.post("/json/cadastrarcurso.php", { curso: nome })
         .done(function (data) {
-            $('#nomecurso').val('');
-        });
+            r = $.parseJSON(data);
 
-    Draggables();
-    Masks();
+            $("#div-cursos")
+                .html(
+                "<div class='well well-sm materiadrag btn-fade' id='" + r.id + "'>" + nome + " &nbsp" +
+                "<button type='button' onclick='DescadastrarCurso(this)' class='btn btn-primary btn-xs' style='font-size: 15px; display: none;' id='" + r.id + "'>x</button></div>" +
+                $("#div-materias").html());
+
+            $('#nomecurso').val('');
+
+            Draggables();
+            Masks();
+        });
 }
 
 

@@ -9,9 +9,5 @@ $matcr = $_POST['matcr'];
 $materia = new Materia($matnome, $matcod, $matcr);
 $materia->Salvar();
 
-$return['id'] = $materia->bean->id;
-
-
-echo json_encode($return);
-
+echo $materia->bean;
 ?>

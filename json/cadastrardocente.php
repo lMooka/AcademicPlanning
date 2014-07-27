@@ -7,8 +7,5 @@ $nome = $_POST['docente'];
 $docente = new Docente($nome);
 $docente->Salvar();
 
-$return['id'] = $docente->bean->id;
-
-echo json_encode($return);
-
+echo $docente->bean;
 ?>
