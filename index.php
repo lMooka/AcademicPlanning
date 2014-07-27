@@ -84,7 +84,7 @@ require_once(__DIR__.'/class/Horario.php');
 
         <div class="page-header">
             <div class="col-lg-2">
-                <div class="bs-component">
+                <div id="divPopout" class="bs-component">
                     <!-- DIV ADD MATERIA -->
                     <div class="panel panel-primary" id="div-add-materia" style="z-index: 10;" title="Adicionar Matéria">
                         <div class="panel-body">
@@ -149,7 +149,9 @@ require_once(__DIR__.'/class/Horario.php');
                             $materias = R::findAll('materia');
 
                             foreach($materias as $id=>$materia){
-                                echo "<div class='well well-sm materiadrag' id='$id'>$materia->ref</div>";
+                                echo "<div class='well well-sm materiadrag btn-fade' id='$id'>$materia->ref &nbsp".
+                                "<button type='button' onclick='DescadastrarMateria(this.id)' class='btn btn-primary btn-xs' style='font-size: 15px; display: none;' id='$id'>x</button>".
+                                "</div>";
                             }
                             ?>
                         </div>
@@ -163,7 +165,9 @@ require_once(__DIR__.'/class/Horario.php');
                             //PREENCHE COM DOCENTES DO BANCO
                             $docentes = R::findAll('docente');
                             foreach ($docentes as $id => $docente){
-                                echo "<div class='well well-sm docentedrag drop-turma' id='$id'>$docente->nome</div>";
+                                echo "<div class='well well-sm docentedrag drop-turma btn-fade' id='$id'>$docente->nome &nbsp".
+                                "<button type='button' onclick='DescadastrarDocente(this.id)' class='btn btn-primary btn-xs' style='font-size: 15px; display: none;' id='$id'>x</button>".
+                                "</div>";
                             }
                             ?>
                         </div>
@@ -177,7 +181,9 @@ require_once(__DIR__.'/class/Horario.php');
                             //PREENCHE COM DOCENTES DO BANCO
                             $cursos = R::findAll('curso');
                             foreach ($cursos as $id => $curso){
-                                echo "<div class='well well-sm cursodrag drop-turma' id='$id'>$curso->nome</div>";
+                                echo "<div class='well well-sm cursodrag drop-turma btn-fade' id='$id'>$curso->nome".
+                                "<button type='button' onclick='DescadastrarCurso(this.id)' class='btn btn-primary btn-xs' style='font-size: 15px; display: none;' id='$id'>x</button>".
+                                "</div>";
                             }
                             ?>
                         </div>

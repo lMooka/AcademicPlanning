@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 require_once(__DIR__.'/../libs/RedBean/setup.php');
 require_once(__DIR__.'/../config.php');

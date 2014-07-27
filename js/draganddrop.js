@@ -22,9 +22,6 @@ $(function () {
                 var local = "tr#" + id_turma;
                 $(local).children('.horario').append(strtag).hide().fadeIn('slow');
             }
-
-
-
         });
 
     });
@@ -49,6 +46,17 @@ $(function () {
 
     $(document).on('mouseleave', '.horario', function () {
         $(this).children('.btn-horario').fadeOut(200);
+    });
+
+
+    $(document).on('mouseenter', '.btn-fade', function () {
+
+        $(this).children('.btn').hide();
+        $(this).children('.btn').hide().fadeIn(200);
+    });
+
+    $(document).on('mouseleave', '.btn-fade', function () {
+        $(this).children('.btn').fadeOut(200);
     });
 
     /*
@@ -300,6 +308,18 @@ function NovoCurso() {
     Masks();
 }
 
+
+function DescadastrarMateria(_id) {
+    $.post("/json/descadastrarmateria.php", { id: _id });
+}
+
+function DescadastrarDocente(_id) {
+    $.post("/json/descadastrardocente.php", { id: _id });
+}
+
+function DescadastrarCurso(_id) {
+    $.post("/json/descadastrarcurso.php", { id: _id });
+}
 
 
 //====STRINGS
