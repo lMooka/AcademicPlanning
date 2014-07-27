@@ -65,12 +65,17 @@ $(function () {
 	$('td.docente, td.ref, td.curso, td.disciplina').hover(function(){
 		if ($(this).html()){
 			$(this).children().remove();
-			btnstring = ' <button type="button" class="btn btn-danger btn-xs" style="font-size: 8px;opacity:0.6;margin-left: 4px;">X</button>';
+			btnstring = ' <button type="button" class="btn btn-danger btn-xs btn-excluir" style="font-size: 8px;opacity:0.6;margin-left: 4px;">X</button>';
 			$(btnstring).appendTo($(this)).hide().fadeIn(200);
 		}
 	}, function(){
 		$(this).children().fadeOut(200);
 
+	});
+	
+	//click botões de excluir
+	$(document).on('click', '.btn-excluir', function(e){
+		alert($(this).parent().parent().attr("id"));
 	});
 	
 	
