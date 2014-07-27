@@ -7,15 +7,15 @@ require_once(__DIR__.'/class/Horario.php');
 <head>
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-	<script src="/js/erro.js"></script>
+    <script src="/js/erro.js"></script>
     <script src="/js/draganddrop.js"></script>
     <script src="/js/jquery.mask.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
-	
-	
-	<link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css">
-	<link rel="stylesheet" type="text/css" href="/css/jquery-ui.structure.min.css">
-	<link rel="stylesheet" type="text/css" href="/css/jquery-ui.theme.min.css">
+    <script src="/js/bootstrap.min.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.structure.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/jquery-ui.theme.min.css">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -32,15 +32,14 @@ require_once(__DIR__.'/class/Horario.php');
             </button>
             <a class="navbar-brand" href="/index.php">Home</a>
         </div>
-		<button type="button" class="btn btn-default navbar-btn btn-primary" id="btnDocentes">Docentes</button>
-		<button type="button" class="btn btn-default navbar-btn btn-primary" id="btnMaterias">Matérias</button>
-		<button type="button" class="btn btn-default navbar-btn btn-primary" id="btnCursos">Cursos</button>
+        <button type="button" class="btn btn-default navbar-btn btn-primary" id="btnDocentes">Docentes</button>
+        <button type="button" class="btn btn-default navbar-btn btn-primary" id="btnMaterias">Matérias</button>
+        <button type="button" class="btn btn-default navbar-btn btn-primary" id="btnCursos">Cursos</button>
         <button type="button" class="btn btn-default navbar-btn navbar-right btn-success">Fazer Login</button>
     </nav>
-	<div id='errors' style='position: absolute; top: 5%; width: 50%; left: 25%; text-align: center; margin-left: auto; margin-right: auto;'>
-		
-	</div>
-	
+    <div id='errors' style='position: absolute; top: 5%; width: 50%; left: 25%; text-align: center; margin-left: auto; margin-right: auto;'>
+    </div>
+
     <section id="table" class="panel panel-default panel-primary" style="margin: 15px 15px 15px 15px;">
         <!-- Default panel contents -->
         <div class="panel-heading">Planilha</div>
@@ -54,24 +53,9 @@ require_once(__DIR__.'/class/Horario.php');
                     <th>Docente</th>
                     <th>CR</th>
                     <th>Nome Disciplina</th>
-					<th >Horarios</th>
+                    <th>Horarios</th>
                 </tr>
             </thead>
-
-            <!--            <th>Disciplina</th>
-            <th>Curso</th>
-            <th>Horário</th>
-            <th>Docente</th>
-            <th>CR</th>
-            <th>Nome Disciplina</th>
-            <tr>
-                <td>MAT992</td>
-                <td>BCC</td>
-                <td><span class="label label-primary">Ter 18:30 - 20:30</span>
-                <span class="label label-primary">Qui 18:30 - 20:30</span></td>
-                <td>Lol Lol Lol</td>
-                <td>2</td>
-                <td>Programação III</td>-->
 
             <?php
             //PREENCHE TABELA COM TURMAS JÁ CRIADAS
@@ -95,19 +79,29 @@ require_once(__DIR__.'/class/Horario.php');
             ?>
         </table>
     </section>
+
     <aside class="bs-docs-section nav-right">
 
         <div class="page-header">
             <div class="col-lg-2">
                 <div class="bs-component">
-                    <div class="panel panel-primary hidden" id="div-add-materia">
-                        <div class="panel-heading">Adicionar Matéria</div>
-                        <div class="panel-body">
+                    <div class="panel panel-primary" id="materiascol" title="Matérias">
+                        <button type="button" class="btn btn-info btn-sm btn-right" id='btnMostrarDivMateria'>+</button>
+                        <div id="div-materias" class="panel-body" style='z-index: 10; overflow-y: scroll; height: 300px;'>
+                            <?php
+                            //PREENCHE COM MATÉRIAS DO BANCO
+                            $materias = R::findAll('materia');
 
-                            <div class="input-group">
-                                <span class="input-group-addon">Nome</span>
-                                <input id='matnome' type="text" class="form-control" placeholder="ex. Cálculo A">
-                            </div>
+                            foreach($materias as $id=>$materia){
+                                echo "<div class='well well-sm materiadrag' id='$id'>$materia->ref</div>";
+                            }
+                            ?>
+                        </div>
+                    </div>
+
+                    <!-- DIV ADD MATERIA -->
+                    <div class="panel panel-primary" id="div-add-materia" style="z-index: 10;" title="Adicionar Matéria">
+                        <div class="panel-body">
                             <br />
                             <div class="input-group">
                                 <span class="input-group-addon">Código</span>
@@ -116,36 +110,12 @@ require_once(__DIR__.'/class/Horario.php');
                             <br />
                             <span class="btn-group">
                                 <button type="button" class="btn btn-primary btn-group-sm" id='btnAddMateria'>Adicionar</button>
-                                <button type="button" class="btn btn-danger btn-group-sm" id='btnAddMatCancelar'>x</button>
                             </span>
                         </div>
                     </div>
 
-                    <div class="panel panel-primary" id="materiascol" title="Matérias">
-                        <!--<div class="panel-heading">
-                            Matérias &nbsp
-                                <button type="button" style='text-align: right;' class="btn btn-info btn-sm btn-right" id='btnMostrarDivMateria'>+</button>
-                        </div>-->
-
-                        <div id="div-materias" class="panel-body">
-                            <?php
-                            //PREENCHE COM MATÉRIAS DO BANCO
-                            $materias = R::findAll('materia');
-                            
-                            foreach($materias as $id=>$materia){
-                                echo "<div class='well well-sm materiadrag' id='$id'>$materia->ref</div>";
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-2">
-                <div class="bs-component">
                     <!-- DIV ADD DOCENTE -->
-                    <div class="panel panel-primary hidden" id="div-add-docente">
-                        <div class="panel-heading">Adicionar Docente</div>
+                    <div class="panel panel-primary" id="div-add-docente" style="z-index: 10;" title='Adicionar Docente'>
                         <div class="panel-body">
 
                             <div class="input-group">
@@ -155,23 +125,14 @@ require_once(__DIR__.'/class/Horario.php');
                             <br />
                             <span class="btn-group">
                                 <button type="button" class="btn btn-primary btn-group-sm" id='btnAddDocente'>Adicionar</button>
-                                <button type="button" class="btn btn-danger btn-group-sm" id='btnAddDocCancelar'>x</button>
                             </span>
                         </div>
                     </div>
 
-                    <div class="panel panel-primary" id="docentescol" style='z-index: 10;' title='DOCENTES'>
-                        <!--<div class="panel-heading">
-                            Docentes &nbsp
-                                <button type="button" style='text-align: right;' class="btn btn-info btn-sm btn-right" id='btnMostrarDivDocente'>+</button>
-                        </div>-->
-
-                        <div class="panel-body">
-                            <!--                                <div class="well well-sm docentedrag drop-turma" id='150'>
-                                    Fred Durão
-		
-                                </div>-->
-
+                    <!-- DIVS DE LISTAS -->
+                    <div class="panel panel-primary" id="docentescol" title='Docentes'>
+                        <button type="button" class="btn btn-info btn-sm btn-right" id='btnMostrarDivDocente'>+</button>
+                        <div id='div-docentes' class="panel-body" style='z-index: 10; overflow-y: scroll; height: 300px;'>
                             <?php
                             //PREENCHE COM DOCENTES DO BANCO
                             $docentes = R::findAll('docente');
@@ -181,19 +142,10 @@ require_once(__DIR__.'/class/Horario.php');
                             ?>
                         </div>
                     </div>
-					
-					<div class="panel panel-primary" id="cursoscol" style='z-index: 10;' title='CURSOS'>
-                        <!--<div class="panel-heading">
-                            Docentes &nbsp
-                                <button type="button" style='text-align: right;' class="btn btn-info btn-sm btn-right" id='btnMostrarDivDocente'>+</button>
-                        </div>-->
 
-                        <div class="panel-body">
-                            <!--                                <div class="well well-sm docentedrag drop-turma" id='150'>
-                                    Fred Durão
-		
-                                </div>-->
-
+                    <div class="panel panel-primary" id="cursoscol" title='Cursos'>
+                        <button type="button" class="btn btn-info btn-sm btn-right" id='btnMostrarDivCurso'>+</button>
+                        <div id='div-cursos' class="panel-body" style='z-index: 10; overflow-y: scroll; height: 300px;'>
                             <?php
                             //PREENCHE COM DOCENTES DO BANCO
                             $cursos = R::findAll('curso');
@@ -204,24 +156,33 @@ require_once(__DIR__.'/class/Horario.php');
                         </div>
                     </div>
 
-
-                </div>
-            </div>
-
-            <div class="col-lg-2">
-                <div class="bs-component">
                     <div class="panel panel-primary" id='horarioscol' title='HORÁRIOS' style='display: none;'>
-
-
-                        <div class="panel-body" id='panelhorario' >
-                            <div id='divhorario' > <div class="well well-sm" style='float: left;'> Dia: <select id='dia'> <option value="1">Segunda-feira</option> <option value="2">Terça-feira</option> <option value="3">Quarta-feira</option> <option value="4">Quinta-feira</option> <option value="5">Sexta-feira</option> <option value="6">Sábado</option></select> Inicio: <input class="text-horario" size="5" id='inicio'> Fim:<input class="text-horario" size="5" id='fim'> <button type="button" class="btn btn-success btn-xs btn-salva">✓</button> <button type="button" class="btn btn-danger btn-xs btn-remove">✖</button></div> </div>
-
+                        <div class="panel-body" id='panelhorario'>
+                            <div id='divhorario'>
+                                <div class="well well-sm" style='float: left;'>
+                                    Dia:
+                                    <select id='dia'>
+                                        <option value="1">Segunda-feira</option>
+                                        <option value="2">Terça-feira</option>
+                                        <option value="3">Quarta-feira</option>
+                                        <option value="4">Quinta-feira</option>
+                                        <option value="5">Sexta-feira</option>
+                                        <option value="6">Sábado</option>
+                                    </select>
+                                    Inicio:
+                                    <input class="text-horario" size="5" id='inicio'>
+                                    Fim:<input class="text-horario" size="5" id='fim'>
+                                    <button type="button" class="btn btn-success btn-xs btn-salva">✓</button>
+                                    <button type="button" class="btn btn-danger btn-xs btn-remove">✖</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </aside>
+
 
     <footer>
     </footer>
