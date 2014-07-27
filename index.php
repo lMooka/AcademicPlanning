@@ -142,8 +142,8 @@ require_once(__DIR__.'/class/Horario.php');
 
                     <!-- DIV MATERIAS -->
                     <div class="panel panel-primary" id="materiascol" title="Matérias">
-                        <button type="button" class="btn btn-info btn-sm btn-right" id='btnMostrarDivMateria'>+</button>
                         <div id="div-materias" class="panel-body" style='z-index: 10; overflow-y: scroll; height: 300px;'>
+
                             <?php
                             //PREENCHE COM MATÉRIAS DO BANCO
                             $materias = R::findAll('materia');
@@ -155,11 +155,11 @@ require_once(__DIR__.'/class/Horario.php');
                             }
                             ?>
                         </div>
+                        <button type="button" class="btn btn-info btn-sm" style="width: 100%; margin-top: 10px;" id='btnMostrarDivMateria'>Adicionar Matéria</button>
                     </div>
 
                     <!-- DIV DOCENTES -->
                     <div class="panel panel-primary" id="docentescol" title='Docentes'>
-                        <button type="button" class="btn btn-info btn-sm btn-right" id='btnMostrarDivDocente'>+</button>
                         <div id='div-docentes' class="panel-body" style='z-index: 10; overflow-y: scroll; height: 300px;'>
                             <?php
                             //PREENCHE COM DOCENTES DO BANCO
@@ -171,11 +171,11 @@ require_once(__DIR__.'/class/Horario.php');
                             }
                             ?>
                         </div>
+                        <button type="button" class="btn btn-info btn-sm" style="width: 100%; margin-top: 10px;" id='btnMostrarDivDocente'>Adicionar Docente</button>
                     </div>
 
                     <!-- DIV CURSOS -->
                     <div class="panel panel-primary" id="cursoscol" title='Cursos'>
-                        <button type="button" class="btn btn-info btn-sm btn-right" id='btnMostrarDivCurso'>+</button>
                         <div id='div-cursos' class="panel-body" style='z-index: 10; overflow-y: scroll; height: 300px;'>
                             <?php
                             //PREENCHE COM DOCENTES DO BANCO
@@ -187,6 +187,7 @@ require_once(__DIR__.'/class/Horario.php');
                             }
                             ?>
                         </div>
+                        <button type="button" class="btn btn-info btn-sm" style="width: 100%; margin-top: 10px;" id='btnMostrarDivCurso'>Adicionar Curso</button>
                     </div>
 
                     <!-- DIV HORARIO -->
