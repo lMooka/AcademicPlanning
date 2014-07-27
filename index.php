@@ -56,22 +56,8 @@ require_once(__DIR__.'/class/Horario.php');
                     <th>Nome Disciplina</th>
 					<th >Horarios</th>
                 </tr>
+				
             </thead>
-
-            <!--            <th>Disciplina</th>
-            <th>Curso</th>
-            <th>Horário</th>
-            <th>Docente</th>
-            <th>CR</th>
-            <th>Nome Disciplina</th>
-            <tr>
-                <td>MAT992</td>
-                <td>BCC</td>
-                <td><span class="label label-primary">Ter 18:30 - 20:30</span>
-                <span class="label label-primary">Qui 18:30 - 20:30</span></td>
-                <td>Lol Lol Lol</td>
-                <td>2</td>
-                <td>Programação III</td>-->
 
             <?php
             //PREENCHE TABELA COM TURMAS JÁ CRIADAS
@@ -98,129 +84,125 @@ require_once(__DIR__.'/class/Horario.php');
     <aside class="bs-docs-section nav-right">
 
         <div class="page-header">
-            <div class="col-lg-2">
-                <div class="bs-component">
-                    <div class="panel panel-primary hidden" id="div-add-materia">
-                        <div class="panel-heading">Adicionar Matéria</div>
-                        <div class="panel-body">
-
-                            <div class="input-group">
-                                <span class="input-group-addon">Nome</span>
-                                <input id='matnome' type="text" class="form-control" placeholder="ex. Cálculo A">
-                            </div>
-                            <br />
-                            <div class="input-group">
-                                <span class="input-group-addon">Código</span>
-                                <input id='matcod' type="text" class="form-control" placeholder="ex. MATA00">
-                            </div>
-                            <br />
-                            <span class="btn-group">
-                                <button type="button" class="btn btn-primary btn-group-sm" id='btnAddMateria'>Adicionar</button>
-                                <button type="button" class="btn btn-danger btn-group-sm" id='btnAddMatCancelar'>x</button>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="panel panel-primary" id="materiascol" title="Matérias">
-                        <!--<div class="panel-heading">
-                            Matérias &nbsp
-                                <button type="button" style='text-align: right;' class="btn btn-info btn-sm btn-right" id='btnMostrarDivMateria'>+</button>
-                        </div>-->
-
-                        <div id="div-materias" class="panel-body">
-                            <?php
-                            //PREENCHE COM MATÉRIAS DO BANCO
-                            $materias = R::findAll('materia');
-                            
-                            foreach($materias as $id=>$materia){
-                                echo "<div class='well well-sm materiadrag' id='$id'>$materia->ref</div>";
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-2">
-                <div class="bs-component">
-                    <!-- DIV ADD DOCENTE -->
-                    <div class="panel panel-primary hidden" id="div-add-docente">
-                        <div class="panel-heading">Adicionar Docente</div>
-                        <div class="panel-body">
-
-                            <div class="input-group">
-                                <span class="input-group-addon">Nome</span>
-                                <input id='nomedocente' type="text" class="form-control" placeholder="ex. Frederico Araujo Durao">
-                            </div>
-                            <br />
-                            <span class="btn-group">
-                                <button type="button" class="btn btn-primary btn-group-sm" id='btnAddDocente'>Adicionar</button>
-                                <button type="button" class="btn btn-danger btn-group-sm" id='btnAddDocCancelar'>x</button>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="panel panel-primary" id="docentescol" style='z-index: 10;' title='DOCENTES'>
-                        <!--<div class="panel-heading">
-                            Docentes &nbsp
-                                <button type="button" style='text-align: right;' class="btn btn-info btn-sm btn-right" id='btnMostrarDivDocente'>+</button>
-                        </div>-->
-
-                        <div class="panel-body">
-                            <!--                                <div class="well well-sm docentedrag drop-turma" id='150'>
-                                    Fred Durão
-		
-                                </div>-->
-
-                            <?php
-                            //PREENCHE COM DOCENTES DO BANCO
-                            $docentes = R::findAll('docente');
-                            foreach ($docentes as $id => $docente){
-                                echo "<div class='well well-sm docentedrag drop-turma' id='$id'>$docente->nome</div>";
-                            }
-                            ?>
-                        </div>
-                    </div>
+            <div class="bs-component">
+				<div class="col-lg-2">
+					<div class="bs-component">
+						<!-- DIV ADD MATERIA -->
+						<div class="panel panel-primary" id="div-add-materia" style="z-index: 10;">
+								<div class="panel-body">
+									<br />
+									<div class="input-group">
+										<span class="input-group-addon">Código</span>
+										<input id='matcod' type="text" class="form-control" placeholder="ex. MATA00">
+									</div>
+									<br />
+									<span class="btn-group">
+										<button type="button" class="btn btn-primary btn-group-sm" id='btnAddMateria'>Adicionar</button>
+									</span>
+								</div>
+						</div>				
 					
-					<div class="panel panel-primary" id="cursoscol" style='z-index: 10;' title='CURSOS'>
-                        <!--<div class="panel-heading">
-                            Docentes &nbsp
-                                <button type="button" style='text-align: right;' class="btn btn-info btn-sm btn-right" id='btnMostrarDivDocente'>+</button>
-                        </div>-->
+						<!-- DIV ADD DOCENTE -->
+						<div class="panel panel-primary" id="div-add-docente" style="z-index: 10;" title='Adicionar Docente'>
+							<div class="panel-body">
 
-                        <div class="panel-body">
-                            <!--                                <div class="well well-sm docentedrag drop-turma" id='150'>
-                                    Fred Durão
-		
-                                </div>-->
+								<div class="input-group">
+									<span class="input-group-addon">Nome</span>
+									<input id='nomedocente' type="text" class="form-control" placeholder="ex. Frederico Araujo Durao">
+								</div>
+								<br />
+								<span class="btn-group">
+									<button type="button" class="btn btn-primary btn-group-sm" id='btnAddDocente'>Adicionar</button>
+								</span>
+							</div>
+						</div>
 
-                            <?php
-                            //PREENCHE COM DOCENTES DO BANCO
-                            $cursos = R::findAll('curso');
-                            foreach ($cursos as $id => $curso){
-                                echo "<div class='well well-sm cursodrag drop-turma' id='$id'>$curso->nome</div>";
-                            }
-                            ?>
-                        </div>
-                    </div>
+						<!-- DIV ADD CURSOS -->
+						<div class="panel panel-primary" id="div-add-curso" style="z-index: 10;" title='Adicionar Curso'>
+							<div class="panel-body">
+								<div class="input-group">
+									<span class="input-group-addon">ID</span>
+									<input id='idcurso' type="text" class="form-control" placeholder="0000000">
+								</div>
+								<div class="input-group">
+									<span class="input-group-addon">Nome</span>
+									<input id='nomecurso' type="text" class="form-control" placeholder="ex. Sistemas de Informação">
+								</div>
+								<br />
+								<span class="btn-group">
+									<button type="button" class="btn btn-primary btn-group-sm" id='btnAddCurso'>Adicionar</button>
+								</span>
+							</div>
+						</div>
+						
+						<!-- DIVS DE LISTAS -->
+						<div class="panel panel-primary" id="docentescol" title='Docentes'>
+							<button type="button" class="btn btn-info btn-sm btn-right" id='btnMostrarDivDocente'>+</button>
+							<div id='div-docentes' class="panel-body" style='z-index: 10; overflow-y: scroll; height: 300px;'>
+								<?php
+								//PREENCHE COM DOCENTES DO BANCO
+								$docentes = R::findAll('docente');
+								foreach ($docentes as $id => $docente){
+									echo "<div class='well well-sm docentedrag drop-turma' id='$id'>$docente->nome</div>";
+								}
+								?>
+							</div>
+						</div>
+						
+						<div class="panel panel-primary" id="materiascol" title="Matérias">
+							<button type="button" class="btn btn-info btn-sm btn-right" id='btnMostrarDivMateria'>+</button>
+							<div id="div-materias" class="panel-body" style='z-index: 10; overflow-y: scroll; height: 300px;'>
+								<?php
+								//PREENCHE COM MATÉRIAS DO BANCO
+								$materias = R::findAll('materia');
+								
+								foreach($materias as $id=>$materia){
+									echo "<div class='well well-sm materiadrag' id='$id'>$materia->ref</div>";
+								}
+								?>
+							</div>
+						</div>
+						
+						<div class="panel panel-primary" id="cursoscol" title='Cursos'>
+							<button type="button" class="btn btn-info btn-sm btn-right" id='btnMostrarDivCurso'>+</button>
+							<div id='div-cursos' class="panel-body" style='z-index: 10; overflow-y: scroll; height: 300px;'>
+								<?php
+								//PREENCHE COM DOCENTES DO BANCO
+								$cursos = R::findAll('curso');
+								foreach ($cursos as $id => $curso){
+									echo "<div class='well well-sm cursodrag drop-turma' id='$id'>$curso->nome</div>";
+								}
+								?>
+							</div>
+						</div>
+					</div>
+				</div>
 
-
-                </div>
-            </div>
-
-            <div class="col-lg-2">
                 <div class="bs-component">
                     <div class="panel panel-primary" id='horarioscol' title='HORÁRIOS' style='display: none;'>
-
-
                         <div class="panel-body" id='panelhorario' >
-                            <div id='divhorario' > <div class="well well-sm" style='float: left;'> Dia: <select id='dia'> <option value="1">Segunda-feira</option> <option value="2">Terça-feira</option> <option value="3">Quarta-feira</option> <option value="4">Quinta-feira</option> <option value="5">Sexta-feira</option> <option value="6">Sábado</option></select> Inicio: <input class="text-horario" size="5" id='inicio'> Fim:<input class="text-horario" size="5" id='fim'> <button type="button" class="btn btn-success btn-xs btn-salva">✓</button> <button type="button" class="btn btn-danger btn-xs btn-remove">✖</button></div> </div>
-
+                            <div id='divhorario' >
+								<div class="well well-sm" style='float: left;'>
+								Dia:
+									<select id='dia'>
+									<option value="1">Segunda-feira</option>
+									<option value="2">Terça-feira</option>
+									<option value="3">Quarta-feira</option>
+									<option value="4">Quinta-feira</option>
+									<option value="5">Sexta-feira</option>
+									<option value="6">Sábado</option>
+									</select>
+									Inicio: <input class="text-horario" size="5" id='inicio'>
+									Fim: <input class="text-horario" size="5" id='fim'>
+									<button type="button" class="btn btn-success btn-xs btn-salva">✓</button>
+									<button type="button" class="btn btn-danger btn-xs btn-remove">✖</button>
+								</div>
+							</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+		</div>
     </aside>
 
     <footer>
