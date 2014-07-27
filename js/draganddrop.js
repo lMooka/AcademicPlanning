@@ -274,13 +274,15 @@ function NovoDocente() {
 function NovaMateria() {
     var nome = $('#matnome').val();
     var cod = $('#matcod').val();
+    var cr = $('#matcr').val();
 
-    //alert($('#div-materias').val());
-
-    $.post("/json/adicionarmateria.php", { matnome: nome, matcod: cod });
-    //.done(function (data) {
-    //    $("#div-materias").html($("#div-materias").html() + "<div class='well well-sm materiadrag'>"+cod+"</div>");
-    //});
+    $.post("/json/adicionarmateria.php", { matnome: nome, matcod: cod, matcr: cr })
+        .done(function (data) {
+            //$("#div-materias").html($("#div-materias").html() + "<div class='well well-sm materiadrag'>" + cod + "</div>");
+            $('#matnome').val('');
+            $('#matcod').val('');
+            $('#matcr').val('');
+        });
 
     Draggables();
     Masks();

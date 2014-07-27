@@ -4,8 +4,9 @@ require_once(__DIR__.'/../class/materia.php');
 
 $matnome = $_POST['matnome'];
 $matcod = $_POST['matcod'];
+$matcr = $_POST['matcr'];
 
-$materia = new Materia($matnome, $matcod, 0);
+$materia = new Materia($matnome, $matcod, $matcr);
 $materia->Salvar();
 
 $return['id'] = $materia->bean->id;

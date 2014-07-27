@@ -102,10 +102,19 @@ require_once(__DIR__.'/class/Horario.php');
                     <!-- DIV ADD MATERIA -->
                     <div class="panel panel-primary" id="div-add-materia" style="z-index: 10;" title="Adicionar Matéria">
                         <div class="panel-body">
-                            <br />
                             <div class="input-group">
                                 <span class="input-group-addon">Código</span>
                                 <input id='matcod' type="text" class="form-control" placeholder="ex. MATA00">
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <span class="input-group-addon">Nome</span>
+                                <input id='matnome' type="text" class="form-control" placeholder="ex. Cálculo A">
+                            </div>
+                            <br />
+                            <div class="input-group">
+                                <span class="input-group-addon">Creditos</span>
+                                <input id='matcr' type="number" class="form-control">
                             </div>
                             <br />
                             <span class="btn-group">
