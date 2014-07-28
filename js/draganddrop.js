@@ -290,16 +290,12 @@ function NovoDocente() {
                 .html(
                 "<div class='well well-sm materiadrag btn-fade' id='" + r.id + "'>" + nome + " &nbsp" +
                 "<button type='button' onclick='DescadastrarCurso(this)' class='btn btn-primary btn-xs' style='font-size: 15px; display: none;' id='" + r.id + "'>x</button></div>" +
-                $("#div-materias").html());
+                $("#div-docentes").html());
 
             $('#nomedocente').val('');
 
             Draggables();
-            Masks();
         });
-
-    Draggables();
-    Masks();
 }
 
 function NovaMateria() {
@@ -322,7 +318,6 @@ function NovaMateria() {
             $('#matcr').val('');
 
             Draggables();
-            Masks();
         });
 }
 
@@ -337,12 +332,11 @@ function NovoCurso() {
                 .html(
                 "<div class='well well-sm materiadrag btn-fade' id='" + r.id + "'>" + nome + " &nbsp" +
                 "<button type='button' onclick='DescadastrarCurso(this)' class='btn btn-primary btn-xs' style='font-size: 15px; display: none;' id='" + r.id + "'>x</button></div>" +
-                $("#div-materias").html());
+                $("#div-cursos").html());
 
             $('#nomecurso').val('');
 
             Draggables();
-            Masks();
         });
 }
 
